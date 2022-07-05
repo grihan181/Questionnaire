@@ -7,8 +7,8 @@ import java.util.List;
 
 @Service
 public interface UserService {
-    List<Questionnaire> findAll();
-    void saveAnswers(List answers,long id);
+    List<Questionnaire> findAllQuestionnaire();
+    void saveAnswers(List<Integer> answers, long questionaireId, long userId);
     Questionnaire getQuestionnaireById(long id);
 
 

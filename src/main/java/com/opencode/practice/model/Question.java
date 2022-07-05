@@ -19,7 +19,7 @@ public class Question {
 
     private int rightAnswerIdx;
 
-/*    @ManyToOne
+/*  @ManyToOne
     @JoinColumn(name = "questionnaire_id")
     private Questionnaire questionnaire;*/
 

@@ -1,8 +1,10 @@
 package com.opencode.practice.controller;
 
 import com.opencode.practice.model.Questionnaire;
+import com.opencode.practice.repos.QuestionnaireRepo;
 import com.opencode.practice.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -13,10 +15,12 @@ public class UserController {
 
     @Autowired
     UserServiceImpl userService;
+    @Autowired
+    QuestionnaireRepo questionnaireRepo;
     @GetMapping
     public List<Questionnaire> getQuestionnaireList() {
 
-        return null;
+        return questionnaireRepo.findAll() ;
     }
 
     @GetMapping("{id}")
@@ -25,8 +29,9 @@ public class UserController {
         return null;
     }
 
-    @PostMapping("{id}")
-    public void saveAnswers(@PathVariable long id,
+    @PostMapping("{userId}/{questionaireId}")
+    public void saveAnswers(@PathVariable long userId,
+                                @PathVariable long questionaireId,
                                 @RequestBody ArrayList<Integer> answers) {
 
     }

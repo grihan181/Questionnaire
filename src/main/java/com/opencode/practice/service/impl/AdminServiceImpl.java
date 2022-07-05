@@ -24,16 +24,22 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void deleteQuestionnaireById(long id) {
-            userRepo.deleteById(id);
+        userRepo.deleteById(id);
     }
 
     @Override
     public void addQuestionnaire(Questionnaire questionnaire) {
-        questionnaireRepo.save(questionnaire);
+//        questionnaireRepo.save(questionnaire);
     }
 
     @Override
     public List<Questionnaire> finAllQuestionnaire() {
         return questionnaireRepo.findAll();
+    }
+
+    @Override
+    public Questionnaire editQuestionnaire(Questionnaire questionnaire) {
+        return questionnaireRepo.save(questionnaire);
+
     }
 }

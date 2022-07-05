@@ -25,8 +25,9 @@ public class UserController {
         return null;
     }
 
-    @PostMapping("{id}")
-    public void saveAnswers(@PathVariable long id,
+    @PostMapping("{userId}/{questionaireId}")
+    public void saveAnswers(@PathVariable long userId,
+                                @PathVariable long questionaireId,
                                 @RequestBody ArrayList<Integer> answers) {
 
     }

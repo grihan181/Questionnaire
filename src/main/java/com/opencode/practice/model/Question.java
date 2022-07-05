@@ -26,4 +26,5 @@ public class Question {
     @OneToMany/*(mappedBy = "question")*/
     @JoinColumn(name = "question_id")
     private List<Answer> answers = new LinkedList<>();
+    //    private Stack<Answer> answers = new Stack<>();
 }

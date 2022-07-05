@@ -31,4 +31,9 @@ public class AdminServiceImpl implements AdminService {
     public void addQuestionnaire(Questionnaire questionnaire) {
         questionnaireRepo.save(questionnaire);
     }
+
+    @Override
+    public List<Questionnaire> finAllQuestionnaire() {
+        return questionnaireRepo.findAll();
+    }
 }

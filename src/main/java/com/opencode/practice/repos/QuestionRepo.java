@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface QuestionRepo extends JpaRepository<Question, Long> {
-    @Query("SELECT q FROM QUESTION q WHERE q.questionnaire_id = :id")
-    List<Question> findByQuestionnaireId(@Param("id") long id);
+    @Query(nativeQuery = true, value = "SELECT * FROM QUESTION WHERE questionnaire_id = ?1")
+    List<Question> findQuestionsByQuestionnaireId(long id);
 }

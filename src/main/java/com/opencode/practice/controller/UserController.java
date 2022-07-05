@@ -11,18 +11,17 @@ import java.util.List;
 @RestController
 public class UserController {
 
+
     @Autowired
     UserServiceImpl userService;
     @GetMapping
     public List<Questionnaire> getQuestionnaireList() {
-
-        return null;
+        return userService.findAll();
     }
 
     @GetMapping("{id}")
     public Questionnaire getQuestionaryById(@PathVariable long id) {
-
-        return null;
+        return userService.getQuestionnaireById(id);
     }
 
     @PostMapping("{userId}/{questionaireId}")

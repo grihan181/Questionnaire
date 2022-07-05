@@ -16,7 +16,7 @@ public class UserController {
     UserServiceImpl userService;
     @GetMapping
     public List<Questionnaire> getQuestionnaireList() {
-        return userService.findAll();
+        return userService.findAllQuestionnaire();
     }
 
     @GetMapping("{id}")

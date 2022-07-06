@@ -1,6 +1,5 @@
 package com.opencode.practice.service.impl;
 
-import com.opencode.practice.exception.QuestionnaireNotFoundException;
 import com.opencode.practice.model.AppUser;
 import com.opencode.practice.model.Questionnaire;
 import com.opencode.practice.repos.QuestionnaireRepo;
@@ -25,12 +24,12 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void deleteQuestionnaireById(long id) {
-        questionnaireRepo.deleteById(id);
+        userRepo.deleteById(id);
     }
 
     @Override
     public void addQuestionnaire(Questionnaire questionnaire) {
-        questionnaireRepo.save(questionnaire);
+//        questionnaireRepo.save(questionnaire);
     }
 
     @Override

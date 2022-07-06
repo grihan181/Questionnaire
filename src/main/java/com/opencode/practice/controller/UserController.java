@@ -30,16 +30,14 @@ public class UserController {
 
     }
 
-/*
-    @PostMapping
+
+    @PostMapping("login")
     public void login() {
 
     }
 
-    @PostMapping
+    @PostMapping("logout")
     public void logout() {
 
     }
-*/
-
 }

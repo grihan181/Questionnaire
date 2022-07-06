@@ -1,12 +1,11 @@
 package com.opencode.practice.service.impl;
 
+import com.opencode.practice.exception.QuestionnaireNotFoundException;
 import com.opencode.practice.model.AppUser;
 import com.opencode.practice.model.Questionnaire;
 import com.opencode.practice.repos.QuestionnaireRepo;
 import com.opencode.practice.repos.UserRepo;
 import com.opencode.practice.service.AdminService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,38 +17,41 @@ public class AdminServiceImpl implements AdminService {
     UserRepo userRepo;
     @Autowired
     QuestionnaireRepo questionnaireRepo;
-    private static final Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
 
     @Override
     public List<AppUser> findAllUsers() {
-
-        logger.info("Работа методаfindAllUsers ");
         return userRepo.findAll();
     }
 
     @Override
     public void deleteQuestionnaireById(long id) {
-
-        logger.info("Работа deleteQuestionnaireById ");
         questionnaireRepo.deleteById(id);
     }
 
     @Override
     public void addQuestionnaire(Questionnaire questionnaire) {
-
-        logger.info("Работа deleteQuestionnaireById ");
         questionnaireRepo.save(questionnaire);
     }
 
     @Override
     public List<Questionnaire> finAllQuestionnaire() {
-
-        logger.info("Работа finAllQuestionnaire ");
         return questionnaireRepo.findAll();
     }
 
     @Override
-    public Questionnaire editQuestionnaire(Questionnaire questionnaire) {
-        return questionnaireRepo.save(questionnaire);
-    }
+    public void editQuestionnaire(long id, Questionnaire newQcuestionnaire) {
+
+        questionnaireRepo.findById(id).map(questionnaire -> {
+            questionnaire.setTitle(newQcuestionnaire.getTitle());
+            for(int i = 0; i < questionnaire.getQuestions().size(); i ++) {
+                questionnaire.getQuestions().get(i).setText(newQcuestionnaire.getQuestions().get(i).getText());
+                questionnaire.getQuestions().get(i).setRightAnswerIdx(newQcuestionnaire.getQuestions().get(i).getRightAnswerIdx());
+
+                for (int j = 0; j < questionnaire.getQuestions().get(i).getAnswers().size(); j++) {
+                    questionnaire.getQuestions().get(i).getAnswers().get(j).setText(newQcuestionnaire.getQuestions().get(i).getAnswers().get(j).getText());
+                }
+            }
+            return questionnaireRepo.save(questionnaire);
+        }).orElseThrow(() -> new QuestionnaireNotFoundException(id));
+    }//
 }

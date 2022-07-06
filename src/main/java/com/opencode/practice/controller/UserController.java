@@ -10,10 +10,9 @@ import java.util.List;
 
 @RestController
 public class UserController {
-
-
     @Autowired
     UserServiceImpl userService;
+
     @GetMapping
     public List<Questionnaire> getQuestionnaireList() {
         return userService.findAllQuestionnaire();

@@ -23,7 +23,8 @@ public class Question {
     @JoinColumn(name = "questionnaire_id")
     private Questionnaire questionnaire;*/
 
-    @OneToMany/*(mappedBy = "question")*/
+    @OneToMany(/*mappedBy = "question"*/
+            cascade = CascadeType.ALL)
     @JoinColumn(name = "question_id")
     private List<Answer> answers = new LinkedList<>();
     //    private Stack<Answer> answers = new Stack<>();

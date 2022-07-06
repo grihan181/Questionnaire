@@ -2,18 +2,13 @@ package com.opencode.practice.service.impl;
 
 import com.opencode.practice.exception.QuestionnaireNotFoundException;
 import com.opencode.practice.model.AppUser;
-import com.opencode.practice.model.Question;
 import com.opencode.practice.model.Questionnaire;
 import com.opencode.practice.repos.QuestionnaireRepo;
 import com.opencode.practice.repos.UserRepo;
 import com.opencode.practice.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.beans.Transient;
-import java.util.LinkedList;
 import java.util.List;
 
 @Service

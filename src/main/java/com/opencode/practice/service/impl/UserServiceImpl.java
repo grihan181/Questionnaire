@@ -15,11 +15,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private QuestionnaireRepo questionnaireRepo;
 
-    @Override
-    public List<Questionnaire> findAll() {
-        return questionnaireRepo.findAll();
-    }
-
 
     @Override
     public List<Questionnaire> findAllQuestionnaire() {

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping(path = "user")
 public class UserController {
     @Autowired
     UserServiceImpl userService;
@@ -23,11 +24,11 @@ public class UserController {
         return userService.getQuestionnaireById(id);
     }
 
-    @PostMapping("{userId}/{questionaireId}")
+    @PostMapping("{userId}/{questionnaireId}")
     public void saveAnswers(@PathVariable long userId,
-                                @PathVariable long questionaireId,
+                                @PathVariable long questionnaireId,
                                 @RequestBody List<Integer> answers) {
-
+        userService.saveAnswers(answers, questionnaireId, userId);
     }
 
 

@@ -35,11 +35,6 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<Questionnaire> finAllQuestionnaire() {
-        return questionnaireRepo.findAll();
-    }
-
-    @Override
     public void editQuestionnaire(long id, Questionnaire newQcuestionnaire) {
       /* questionnaireRepo.findById(id).map(questionnaire -> {
                     questionnaire.setTitle(newQcuestionnaire.getTitle());

@@ -1,15 +1,21 @@
 package com.opencode.practice.service.impl;
 
+import com.opencode.practice.model.Answer;
+import com.opencode.practice.model.AppUser;
 import com.opencode.practice.model.Question;
 import com.opencode.practice.model.Questionnaire;
 import com.opencode.practice.repos.AnswerRepo;
+import com.opencode.practice.repos.QuestionRepo;
 import com.opencode.practice.repos.QuestionnaireRepo;
+import com.opencode.practice.repos.UserRepo;
 import com.opencode.practice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 
@@ -18,6 +24,10 @@ public class UserServiceImpl implements UserService {
     private QuestionnaireRepo questionnaireRepo;
     @Autowired
     private AnswerRepo answerRepo;
+    @Autowired
+    private UserRepo userRepo;
+    @Autowired
+    private QuestionRepo questionRepo;
 
     @Override
     public List<Questionnaire> findAllQuestionnaire() {
@@ -27,13 +37,19 @@ public class UserServiceImpl implements UserService {
     ////Must make
     @Override
     public void saveAnswers(List<Integer> answers, long questionaireId, long userId) {
-        Questionnaire questionnaire = questionnaireRepo.findById(questionaireId).get();
-        List<Question> questions = questionnaire.getQuestions();
-        HashMap<Long, Integer> questionsAndAnswers = new HashMap<>();
+        AppUser user = userRepo.findById(userId).get();
+        List<Question> questions = questionRepo.findQuestionsByQuestionnaireId(questionaireId);
+        System.out.println(questions);
 
-        for(int i = 0; i < answers.size(); i++) {
-            questionsAndAnswers.put(questions.get(i).getId(), answers.get(i));
+        Set<Answer> usersAnswers = new HashSet<>();
+
+        for(int i = 0; i < questions.size(); i++) {
+            List<Answer> answersInOneQuestion = questions.get(i).getAnswers();
+            usersAnswers.add(answersInOneQuestion.get(answers.get(i)));
         }
+        System.out.println(usersAnswers);
+        user.setAnswers(usersAnswers);
+        userRepo.save(user);
     }
 
     @Override

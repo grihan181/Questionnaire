@@ -12,6 +12,5 @@ public interface AdminService {
     List<AppUser> findAllUsers();
     void deleteQuestionnaireById(long id);
     void addQuestionnaire(Questionnaire questionnaire);
-    List<Questionnaire> finAllQuestionnaire();
     void editQuestionnaire(long id, Questionnaire newQuestionnaire);
 }

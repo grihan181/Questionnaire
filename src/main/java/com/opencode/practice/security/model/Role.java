@@ -1,22 +1,27 @@
-package com.opencode.practice.model;
+package com.opencode.practice.security.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
 public enum Role {
     USER(Set.of(Permission.DEVELOPERS_READ)),
     ADMIN(Set.of(Permission.DEVELOPERS_READ, Permission.DEVELOPERS_WRITE));
-    @Getter
+
     private final Set<Permission> permissions;
 
-    public Set<SimpleGrantedAuthority> getAuthorities(){
+    Role(Set<Permission> permissions) {
+        this.permissions = permissions;
+    }
+
+    public Set<Permission> getPermissions() {
+        return permissions;
+    }
+
+    public Set<SimpleGrantedAuthority> getAuthorities() {
         return getPermissions().stream()
-                .map(x-> new SimpleGrantedAuthority(x.getPermission()))
+                .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
                 .collect(Collectors.toSet());
     }
 }

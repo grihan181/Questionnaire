@@ -2,7 +2,6 @@ package com.opencode.practice.service;
 
 import com.opencode.practice.model.AppUser;
 import com.opencode.practice.model.Questionnaire;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,5 +16,5 @@ public interface AdminService {
 
     List<Questionnaire> finAllQuestionnaire();
 
-    Questionnaire editQuestionnaire(Questionnaire questionnaire);
+    Questionnaire editQuestionnaire(long id, Questionnaire newQcuestionnaire);
 }

@@ -38,7 +38,6 @@ public class AdminController {
     @PutMapping("{id}")
     public void editQuestionaty(Questionnaire questionnaire) {
         logger.info("Работа метода editQuestionaty");
-        adminService.editQuestionnaire(questionnaire);
     }
 
 

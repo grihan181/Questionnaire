@@ -1,5 +1,7 @@
 package com.opencode.practice.controller;
 
+import com.opencode.practice.assistClass.UserScore;
+import com.opencode.practice.model.AppUser;
 import com.opencode.practice.model.Questionnaire;
 import com.opencode.practice.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,10 @@ public class UserController {
                                 @PathVariable long questionnaireId,
                                 @RequestBody List<Integer> answers) {
         userService.saveAnswers(answers, questionnaireId, userId);
+    }
+    @GetMapping("leaderBoard/{id}")
+    public List<UserScore> getLeaderBoard(@PathVariable long id) {
+        return userService.getLeaderBordInOneQuestion(id);
     }
 
 

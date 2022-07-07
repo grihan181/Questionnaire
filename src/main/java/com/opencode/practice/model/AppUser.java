@@ -27,6 +27,4 @@ public class AppUser {
             inverseJoinColumns = {@JoinColumn(name = "answer_id")}
     )
     private Set<Answer> answers = new HashSet<>();
-//    private Stack<Answer> answers = new Stack<>();
-
 }

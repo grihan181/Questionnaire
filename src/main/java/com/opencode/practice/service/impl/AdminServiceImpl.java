@@ -40,19 +40,24 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void editQuestionnaire(long id, Questionnaire newQcuestionnaire) {
+    public Questionnaire editQuestionnaire(Questionnaire questionnaire) {
+        return null;
+    }
 
-        questionnaireRepo.findById(id).map(questionnaire -> {
-            questionnaire.setTitle(newQcuestionnaire.getTitle());
-            for(int i = 0; i < questionnaire.getQuestions().size(); i ++) {
-                questionnaire.getQuestions().get(i).setText(newQcuestionnaire.getQuestions().get(i).getText());
-                questionnaire.getQuestions().get(i).setRightAnswerIdx(newQcuestionnaire.getQuestions().get(i).getRightAnswerIdx());
-
-                for (int j = 0; j < questionnaire.getQuestions().get(i).getAnswers().size(); j++) {
-                    questionnaire.getQuestions().get(i).getAnswers().get(j).setText(newQcuestionnaire.getQuestions().get(i).getAnswers().get(j).getText());
-                }
-            }
-            return questionnaireRepo.save(questionnaire);
-        }).orElseThrow(() -> new QuestionnaireNotFoundException(id));
-    }//
+//    @Override
+//    public void editQuestionnaire(long id, Questionnaire newQcuestionnaire) {
+//
+//        questionnaireRepo.findById(id).map(questionnaire -> {
+//            questionnaire.setTitle(newQcuestionnaire.getTitle());
+//            for(int i = 0; i < questionnaire.getQuestions().size(); i ++) {
+//                questionnaire.getQuestions().get(i).setText(newQcuestionnaire.getQuestions().get(i).getText());
+//                questionnaire.getQuestions().get(i).setRightAnswerIdx(newQcuestionnaire.getQuestions().get(i).getRightAnswerIdx());
+//
+//                for (int j = 0; j < questionnaire.getQuestions().get(i).getAnswers().size(); j++) {
+//                    questionnaire.getQuestions().get(i).getAnswers().get(j).setText(newQcuestionnaire.getQuestions().get(i).getAnswers().get(j).getText());
+//                }
+//            }
+//            return questionnaireRepo.save(questionnaire);
+//        }).orElseThrow(() -> new QuestionnaireNotFoundException(id));
+//    }
 }

@@ -12,7 +12,6 @@ import com.opencode.practice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -34,7 +33,6 @@ public class UserServiceImpl implements UserService {
         return questionnaireRepo.findAll();
     }
 
-    ////Must make
     @Override
     public void saveAnswers(List<Integer> answers, long questionaireId, long userId) {
         AppUser user = userRepo.findById(userId).get();
@@ -55,6 +53,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public Questionnaire getQuestionnaireById(long id) {
         return questionnaireRepo.findById(id).get();
-    }//
+    }
 
 }

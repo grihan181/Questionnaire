@@ -1,7 +1,7 @@
 package com.opencode.practice.security.jwts;
 
-import com.opencode.practice.model.Status;
-import com.opencode.practice.model.User;
+import com.opencode.practice.security.model.Status;
+import com.opencode.practice.security.model.User;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

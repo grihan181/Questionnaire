@@ -3,7 +3,6 @@ package com.opencode.practice.model;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.aspectj.weaver.patterns.TypePatternQuestions;
 
 import javax.persistence.*;
 import java.util.LinkedList;

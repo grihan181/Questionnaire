@@ -1,6 +1,5 @@
 package com.opencode.practice.service.impl;
 
-import com.opencode.practice.exception.QuestionnaireNotFoundException;
 import com.opencode.practice.model.AppUser;
 import com.opencode.practice.model.Questionnaire;
 import com.opencode.practice.repos.QuestionnaireRepo;
@@ -34,24 +33,30 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void editQuestionnaire(long id, Questionnaire newQcuestionnaire) {
-      /* questionnaireRepo.findById(id).map(questionnaire -> {
-                    questionnaire.setTitle(newQcuestionnaire.getTitle());
-                    questionnaire.setQuestions(newQcuestionnaire.getQuestions());
-                    return questionnaireRepo.save(questionnaire);
-                }).orElseThrow(() -> new QuestionnaireNotFoundException(id));*/
-
-        questionnaireRepo.findById(id).map(questionnaire -> {
-            questionnaire.setTitle(newQcuestionnaire.getTitle());
-            for(int i = 0; i < questionnaire.getQuestions().size(); i ++) {
-                questionnaire.getQuestions().get(i).setText(newQcuestionnaire.getQuestions().get(i).getText());
-                questionnaire.getQuestions().get(i).setRightAnswerIdx(newQcuestionnaire.getQuestions().get(i).getRightAnswerIdx());
-
-                for (int j = 0; j < questionnaire.getQuestions().get(i).getAnswers().size(); j++) {
-                    questionnaire.getQuestions().get(i).getAnswers().get(j).setText(newQcuestionnaire.getQuestions().get(i).getAnswers().get(j).getText());
-                }
-            }
-            return questionnaireRepo.save(questionnaire);
-        }).orElseThrow(() -> new QuestionnaireNotFoundException(id));
+    public List<Questionnaire> finAllQuestionnaire() {
+        return questionnaireRepo.findAll();
     }
+
+    @Override
+    public Questionnaire editQuestionnaire(long id, Questionnaire newQcuestionnaire) {
+        return null;
+    }
+
+//    @Override
+//    public void editQuestionnaire(long id, Questionnaire newQcuestionnaire) {
+//
+//        questionnaireRepo.findById(id).map(questionnaire -> {
+//            questionnaire.setTitle(newQcuestionnaire.getTitle());
+//            for(int i = 0; i < questionnaire.getQuestions().size(); i ++) {
+//                questionnaire.getQuestions().get(i).setText(newQcuestionnaire.getQuestions().get(i).getText());
+//                questionnaire.getQuestions().get(i).setRightAnswerIdx(newQcuestionnaire.getQuestions().get(i).getRightAnswerIdx());
+//
+//                for (int j = 0; j < questionnaire.getQuestions().get(i).getAnswers().size(); j++) {
+//                    questionnaire.getQuestions().get(i).getAnswers().get(j).setText(newQcuestionnaire.getQuestions().get(i).getAnswers().get(j).getText());
+//                }
+//            }
+//            return questionnaireRepo.save(questionnaire);
+//        }).orElseThrow(() -> new QuestionnaireNotFoundException(id));
+//        return;
+//    }
 }

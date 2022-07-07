@@ -1,4 +1,4 @@
-package com.opencode.practice.model;
+package com.opencode.practice.security.model;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 

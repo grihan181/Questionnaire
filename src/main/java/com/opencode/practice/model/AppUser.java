@@ -1,11 +1,11 @@
 package com.opencode.practice.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -17,16 +17,14 @@ public class AppUser {
 
     private String email;
 
+
     private String password;
 
-    @JsonBackReference
     @ManyToMany
     @JoinTable(
             name = "UsersAnswer",
             joinColumns = {@JoinColumn(name = "appUser_id")},
             inverseJoinColumns = {@JoinColumn(name = "answer_id")}
     )
-    private List<Answer> answers = new LinkedList<>();
-//    private Stack<Answer> answers = new Stack<>();
-
+    private Set<Answer> answers = new HashSet<>();
 }

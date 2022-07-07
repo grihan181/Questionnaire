@@ -1,4 +1,4 @@
-package com.opencode.practice.model;
+package com.opencode.practice.security.model;
 
 public enum Permission {
     DEVELOPERS_READ("developers:read"),

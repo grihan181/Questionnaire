@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
             List<Answer> answersInOneQuestion = questions.get(i).getAnswers();
             usersAnswers.add(answersInOneQuestion.get(answers.get(i)));
         }
-        System.out.println(usersAnswers);
+        System.out.println("Вывод" + usersAnswers);
         user.setAnswers(usersAnswers);
         userRepo.save(user);
     }

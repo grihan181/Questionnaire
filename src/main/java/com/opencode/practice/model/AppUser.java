@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Stack;
 
 @Entity
 @Data
@@ -17,6 +16,7 @@ public class AppUser {
     private long id;
 
     private String email;
+
 
     private String password;
 

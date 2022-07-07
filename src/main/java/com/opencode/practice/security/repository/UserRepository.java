@@ -1,12 +1,12 @@
-package com.opencode.practice.repos;
+package com.opencode.practice.security.repository;
 
-import com.opencode.practice.model.AppUser;
+import com.opencode.practice.security.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface UserRepo extends JpaRepository<AppUser, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
 }

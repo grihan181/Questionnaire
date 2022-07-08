@@ -1,9 +1,6 @@
 package com.opencode.practice.controller;
 
-import com.opencode.practice.exception.ExceptionData;
-import com.opencode.practice.exception.NoSuchCountExeption;
-import com.opencode.practice.model.Role;
-import com.opencode.practice.model.Status;
+import com.opencode.practice.security.jwts.JwtTokenProwider.JwtTokenProvider;
 import com.opencode.practice.model.User;
 import com.opencode.practice.repos.UserRepo;
 import com.opencode.practice.security.jwts.JwtTokenProwider.JwtTokenProvider;

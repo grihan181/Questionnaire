@@ -1,6 +1,7 @@
 package com.opencode.practice.security.jwts.JwtTokenProwider;
 
 import io.jsonwebtoken.*;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ public class JwtTokenProvider {
     private final UserDetailsService userDetailsService;
 
     @Value("${jwt.secret}")
+    @Getter
     private String secretKey;
     @Value("${jwt.header}")
     private String authorizationHeader;

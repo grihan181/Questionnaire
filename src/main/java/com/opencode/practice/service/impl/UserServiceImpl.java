@@ -1,7 +1,6 @@
 package com.opencode.practice.service.impl;
 
 import com.opencode.practice.assistClass.UserScore;
-import com.opencode.practice.comparator.TreeMapByValueComparator;
 import com.opencode.practice.model.Answer;
 import com.opencode.practice.model.AppUser;
 import com.opencode.practice.model.Question;
@@ -15,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 
@@ -27,8 +27,6 @@ public class UserServiceImpl implements UserService {
     private UserRepo userRepo;
     @Autowired
     private QuestionRepo questionRepo;
-    @Autowired
-    private TreeMapByValueComparator treeMapByValueComparator;
 
     @Override
     public List<Questionnaire> findAllQuestionnaire() {
@@ -60,36 +58,27 @@ public class UserServiceImpl implements UserService {
         List<UserScore> userScores = new LinkedList<>();
         Questionnaire questionnaire = questionnaireRepo.findById(id).get();
 
-        List<Long> usersId = userRepo.findUsersByQuestionnaireId(id);
+        List<AppUser> users = userRepo.findUsersByQuestionnaireId(id);
 
-        TreeMap<Long, Integer> usersAndAnswers = new TreeMap<>();
-        for(Long userId : usersId) {
+        List<UserScore> finalUserScores = userScores;
+        users.forEach(appUser -> {
             int userRightAnswers = 0;
             for(int i = 0; i < questionnaire.getQuestions().size(); i++) {
                 int rightAnswer = questionnaire.getQuestions().get(i).getRightAnswerIdx();
-                boolean userAnswer = questionnaire.getQuestions().get(i).getAnswers().get(rightAnswer).getAppUsers().stream().anyMatch(appUser -> appUser.getId() == userId);
+                boolean userAnswer = questionnaire.getQuestions().get(i).getAnswers().get(rightAnswer).getAppUsers().stream().anyMatch(u -> u.getId() == appUser.getId());
 
                 if(userAnswer) {
                     userRightAnswers++;
                 }
             }
-            usersAndAnswers.put(userId, userRightAnswers);
-        }
-        usersAndAnswers = treeMapByValueComparator.valueSort(usersAndAnswers);
+            finalUserScores.add(new UserScore(appUser, userRightAnswers));
 
-        List<Long> sortedUsersId = new ArrayList<>();
-        for(int i = 0; i < usersAndAnswers.size(); i++) {
-            sortedUsersId.add(usersAndAnswers.keySet().toArray(new Long[usersAndAnswers.size()])[i]);
-        }
-        Collections.reverse(sortedUsersId);
+        });
+        userScores = finalUserScores.stream()
+                .sorted(Comparator.comparingInt(UserScore::getScore)
+                .reversed())
+                .collect(Collectors.toList());
 
-        for(int i = 0; i < sortedUsersId.size(); i++) {
-            System.out.println(sortedUsersId.get(i));
-            System.out.println(usersAndAnswers.get(sortedUsersId.get(i)));
-            userScores.add(new UserScore(userRepo.findById(sortedUsersId.get(i)).get(), usersAndAnswers.get(sortedUsersId.get(i))));
-        }
-        System.out.println(userScores);
         return userScores;
     }
-
 }

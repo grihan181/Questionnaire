@@ -13,7 +13,7 @@ public class UserScore {
 
     private int score;
 
-    public UserScore(AppUser user, Integer score) {
+    public UserScore(AppUser user, int score) {
         this.user = user;
         this.score = score;
     }

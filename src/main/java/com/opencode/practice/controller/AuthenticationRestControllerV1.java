@@ -3,6 +3,8 @@ package com.opencode.practice.controller;
 import com.opencode.practice.security.jwts.JwtTokenProwider.JwtTokenProvider;
 import com.opencode.practice.model.User;
 import com.opencode.practice.repos.UserRepositorySecurity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,6 +29,8 @@ public class AuthenticationRestControllerV1 {
   private final AuthenticationManager authenticationManager;
   private UserRepositorySecurity userRepositorySecurity;
   private JwtTokenProvider jwtTokenProvider;
+  private static final Logger logger = LoggerFactory.getLogger(AuthenticationRestControllerV1.class);
+
 
   public AuthenticationRestControllerV1(AuthenticationManager authenticationManager, UserRepositorySecurity userRepositorySecurity, JwtTokenProvider jwtTokenProvider) {
     this.authenticationManager = authenticationManager;
@@ -36,6 +40,7 @@ public class AuthenticationRestControllerV1 {
 
   @PostMapping("/signIn")
   public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequestDTO request) {
+    logger.info("Работа метода signIn");
     try {
       authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
       User user = userRepositorySecurity.findByEmail(request.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));
@@ -51,6 +56,7 @@ public class AuthenticationRestControllerV1 {
 
   @PostMapping("/signOut")
   public void logout(HttpServletRequest request, HttpServletResponse response) {
+    logger.info("Работа метода signOut");
     SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
     securityContextLogoutHandler.logout(request, response, null);
   }

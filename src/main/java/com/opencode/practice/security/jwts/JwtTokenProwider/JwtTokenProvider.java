@@ -2,6 +2,8 @@ package com.opencode.practice.security.jwts.JwtTokenProwider;
 
 import io.jsonwebtoken.*;
 import lombok.Getter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -30,6 +32,7 @@ public class JwtTokenProvider {
     private long validityMilSec;
 
     private UserDetailsService userDetailsService;
+    private static final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
 
     public JwtTokenProvider(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
@@ -41,6 +44,7 @@ public class JwtTokenProvider {
     }
 
     public String createToken(String username, String role) {
+        logger.info("createToken");
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("role", role);
         Date now = new Date();
@@ -54,6 +58,8 @@ public class JwtTokenProvider {
     }
 
     public boolean validateToken(String token) {
+        logger.info("validateToken");
+
         try {
             Jws<Claims> claimsJws = Jwts.parser()
                     .setSigningKey(secretKey)
@@ -66,12 +72,16 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
+        logger.info("getAuthentication token");
+
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(getUsername(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
 
     }
 
     public String getUsername(String token) {
+        logger.info("get username from token");
+
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token)
                 .getBody().getSubject();
     }

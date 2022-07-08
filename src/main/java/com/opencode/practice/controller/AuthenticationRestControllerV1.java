@@ -2,7 +2,7 @@ package com.opencode.practice.controller;
 
 import com.opencode.practice.security.jwts.JwtTokenProwider.JwtTokenProvider;
 import com.opencode.practice.model.User;
-import com.opencode.practice.repos.UserRepository;
+import com.opencode.practice.repos.UserRepositorySecurity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,12 +25,12 @@ import java.util.Map;
 public class AuthenticationRestControllerV1 {
 
   private final AuthenticationManager authenticationManager;
-  private UserRepository userRepository;
+  private UserRepositorySecurity userRepositorySecurity;
   private JwtTokenProvider jwtTokenProvider;
 
-  public AuthenticationRestControllerV1(AuthenticationManager authenticationManager, UserRepository userRepository, JwtTokenProvider jwtTokenProvider) {
+  public AuthenticationRestControllerV1(AuthenticationManager authenticationManager, UserRepositorySecurity userRepositorySecurity, JwtTokenProvider jwtTokenProvider) {
     this.authenticationManager = authenticationManager;
-    this.userRepository = userRepository;
+    this.userRepositorySecurity = userRepositorySecurity;
     this.jwtTokenProvider = jwtTokenProvider;
   }
 
@@ -38,7 +38,7 @@ public class AuthenticationRestControllerV1 {
   public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequestDTO request) {
     try {
       authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-      User user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));
+      User user = userRepositorySecurity.findByEmail(request.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));
       String token = jwtTokenProvider.createToken(request.getEmail(), user.getRole().name());
       Map<Object, Object> response = new HashMap<>();
       response.put("email", request.getEmail());

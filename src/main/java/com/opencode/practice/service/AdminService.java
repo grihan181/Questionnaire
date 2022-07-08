@@ -16,5 +16,5 @@ public interface AdminService {
 
     List<Questionnaire> finAllQuestionnaire();
 
-    Questionnaire editQuestionnaire(long id, Questionnaire newQcuestionnaire);
+    void editQuestionnaire(long id, Questionnaire newQcuestionnaire);
 }

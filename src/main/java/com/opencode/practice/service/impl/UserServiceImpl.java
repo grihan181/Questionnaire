@@ -34,9 +34,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveAnswers(List<Integer> answers, long questionaireId, long userId) {
+    public void saveAnswers(List<Integer> answers, long questionnaireId, long userId) {
         AppUser user = userRepo.findById(userId).get();
-        List<Question> questions = questionRepo.findQuestionsByQuestionnaireId(questionaireId);
+        List<Question> questions = questionRepo.findQuestionsByQuestionnaireId(questionnaireId);
 
         List<Answer> usersAnswers = new LinkedList<>();
 

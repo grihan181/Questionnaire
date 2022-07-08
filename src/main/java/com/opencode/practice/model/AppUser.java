@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,5 +28,5 @@ public class AppUser {
             joinColumns = {@JoinColumn(name = "appUser_id")},
             inverseJoinColumns = {@JoinColumn(name = "answer_id")}
     )
-    private Set<Answer> answers = new HashSet<>();
+    private List<Answer> answers = new LinkedList<>();
 }

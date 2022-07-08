@@ -1,12 +1,15 @@
 package com.opencode.practice.controller;
 
 import com.opencode.practice.model.Questionnaire;
+import com.opencode.practice.model.User;
 import com.opencode.practice.repos.QuestionnaireRepo;
-import com.opencode.practice.service.AdminService;
+import com.opencode.practice.repos.UserRepositorySecurity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/admin")
@@ -16,9 +19,9 @@ public class AdminController {
     private QuestionnaireRepo questionnaireRepo;
 
     @Autowired
-    private AdminService adminService;
+    private UserRepositorySecurity userRepositorySecurity;
 
-   private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
+    private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
 
     @PostMapping
@@ -40,5 +43,10 @@ public class AdminController {
         logger.info("Работа метода editQuestionaty");
     }
 
+
+    @GetMapping("/users")
+    public List<User> users() {
+        return userRepositorySecurity.findAll();
+    }
 
 }

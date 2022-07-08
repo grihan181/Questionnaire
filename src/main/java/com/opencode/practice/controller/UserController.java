@@ -32,7 +32,7 @@ public class UserController {
     }
     @GetMapping("leaderBoard/{id}")
     public List<UserScore> getLeaderBoard(@PathVariable long id) {
-        return userService.getLeaderBordInOneQuestion(id);
+        return userService.getLeaderBordInOneQuestionnaire(id);
     }
 
 

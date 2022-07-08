@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserScore> getLeaderBordInOneQuestion(long id) {
+    public List<UserScore> getLeaderBordInOneQuestionnaire(long id) {
         List<UserScore> userScores = new LinkedList<>();
         Questionnaire questionnaire = questionnaireRepo.findById(id).get();
 

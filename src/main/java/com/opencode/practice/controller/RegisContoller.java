@@ -3,7 +3,7 @@ package com.opencode.practice.controller;
 import com.opencode.practice.model.Role;
 import com.opencode.practice.model.Status;
 import com.opencode.practice.model.User;
-import com.opencode.practice.repos.UserRepositorySecurity;
+import com.opencode.practice.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RegisContoller {
 
     @Autowired
-    private UserRepositorySecurity userRepositorySecurity;
+    private UserRepo userRepositorySecurity;
 
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 

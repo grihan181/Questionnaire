@@ -11,5 +11,5 @@ public interface UserService {
     List<Questionnaire> findAllQuestionnaire();
     void saveAnswers(List<Integer> answers, long questionnaireId, long userId);
     Questionnaire getQuestionnaireById(long id);
-    List<UserScore> getLeaderBordInOneQuestion(long id);
+    List<UserScore> getLeaderBordInOneQuestionnaire(long id);
 }

@@ -1,4 +1,4 @@
-package com.opencode.practice.security.rest;
+package com.opencode.practice.controller;
 
 import lombok.Data;
 

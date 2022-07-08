@@ -1,6 +1,6 @@
-package com.opencode.practice.security.repository;
+package com.opencode.practice.repos;
 
-import com.opencode.practice.security.model.User;
+import com.opencode.practice.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

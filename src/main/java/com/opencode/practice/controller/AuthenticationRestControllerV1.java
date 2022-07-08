@@ -1,8 +1,8 @@
-package com.opencode.practice.security.rest;
+package com.opencode.practice.controller;
 
 import com.opencode.practice.security.jwts.JwtTokenProwider.JwtTokenProvider;
-import com.opencode.practice.security.model.User;
-import com.opencode.practice.security.repository.UserRepository;
+import com.opencode.practice.model.User;
+import com.opencode.practice.repos.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -1,4 +1,4 @@
-package com.opencode.practice.security.config;
+package com.opencode.practice.config;
 
 import com.opencode.practice.security.jwts.JwtTokenProwider.JwtConfigurer;
 import org.springframework.context.annotation.Bean;

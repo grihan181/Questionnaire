@@ -24,5 +24,5 @@ public class Answer {
 
     @JsonManagedReference
     @ManyToMany(mappedBy = "answers")
-    private List<User> appUsers = new LinkedList<>();
+    private List<User> users = new LinkedList<>();
 }

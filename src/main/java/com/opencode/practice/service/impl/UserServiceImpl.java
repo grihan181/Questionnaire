@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
             int userRightAnswers = 0;
             for(int i = 0; i < questionnaire.getQuestions().size(); i++) {
                 int rightAnswer = questionnaire.getQuestions().get(i).getRightAnswerIdx();
-                boolean userAnswer = questionnaire.getQuestions().get(i).getAnswers().get(rightAnswer).getAppUsers().stream().anyMatch(u -> u.getId() == appUser.getId());
+                boolean userAnswer = questionnaire.getQuestions().get(i).getAnswers().get(rightAnswer).getUsers().stream().anyMatch(u -> u.getId() == appUser.getId());
 
                 if(userAnswer) {
                     userRightAnswers++;

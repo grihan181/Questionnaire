@@ -34,7 +34,7 @@ public class AuthenticationRestControllerV1 {
     this.jwtTokenProvider = jwtTokenProvider;
   }
 
-  @PostMapping("/login")
+  @PostMapping("/signIn")
   public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequestDTO request) {
     try {
       authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
@@ -49,7 +49,7 @@ public class AuthenticationRestControllerV1 {
     }
   }
 
-  @PostMapping("/logout")
+  @PostMapping("/signOut")
   public void logout(HttpServletRequest request, HttpServletResponse response) {
     SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
     securityContextLogoutHandler.logout(request, response, null);

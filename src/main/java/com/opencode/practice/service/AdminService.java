@@ -1,6 +1,6 @@
 package com.opencode.practice.service;
 
-import com.opencode.practice.model.AppUser;
+import com.opencode.practice.model.User;
 import com.opencode.practice.model.Questionnaire;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +8,7 @@ import java.util.List;
 
 @Service
 public interface AdminService {
-    List<AppUser> findAllUsers();
+    List<User> findAllUsers();
 
     void deleteQuestionnaireById(long id);
 

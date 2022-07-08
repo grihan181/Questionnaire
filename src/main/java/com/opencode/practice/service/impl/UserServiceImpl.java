@@ -2,7 +2,7 @@ package com.opencode.practice.service.impl;
 
 import com.opencode.practice.assistClass.UserScore;
 import com.opencode.practice.model.Answer;
-import com.opencode.practice.model.AppUser;
+import com.opencode.practice.model.User;
 import com.opencode.practice.model.Question;
 import com.opencode.practice.model.Questionnaire;
 import com.opencode.practice.repos.AnswerRepo;
@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveAnswers(List<Integer> answers, long questionnaireId, long userId) {
-        AppUser user = userRepo.findById(userId).get();
+        User user = userRepo.findById(userId).get();
         List<Question> questions = questionRepo.findQuestionsByQuestionnaireId(questionnaireId);
 
         List<Answer> usersAnswers = new LinkedList<>();
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
         List<UserScore> userScores = new LinkedList<>();
         Questionnaire questionnaire = questionnaireRepo.findById(id).get();
 
-        List<AppUser> users = userRepo.findUsersByQuestionnaireId(id);
+        List<User> users = userRepo.findUsersByQuestionnaireId(id);
 
         List<UserScore> finalUserScores = userScores;
         users.forEach(appUser -> {

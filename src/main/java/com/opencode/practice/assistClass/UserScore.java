@@ -1,6 +1,6 @@
 package com.opencode.practice.assistClass;
 
-import com.opencode.practice.model.AppUser;
+import com.opencode.practice.model.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 @Data
 @NoArgsConstructor
 public class UserScore {
-    private AppUser user;
+    private User user;
 
     private int score;
 
-    public UserScore(AppUser user, int score) {
+    public UserScore(User user, int score) {
         this.user = user;
         this.score = score;
     }

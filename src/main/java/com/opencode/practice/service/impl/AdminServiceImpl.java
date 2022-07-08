@@ -1,6 +1,7 @@
 package com.opencode.practice.service.impl;
 
-import com.opencode.practice.model.AppUser;
+import com.opencode.practice.exception.QuestionnaireNotFoundException;
+import com.opencode.practice.model.User;
 import com.opencode.practice.model.Questionnaire;
 import com.opencode.practice.repos.QuestionnaireRepo;
 import com.opencode.practice.repos.UserRepo;
@@ -18,7 +19,7 @@ public class AdminServiceImpl implements AdminService {
     QuestionnaireRepo questionnaireRepo;
 
     @Override
-    public List<AppUser> findAllUsers() {
+    public List<User> findAllUsers() {
         return userRepo.findAll();
     }
 

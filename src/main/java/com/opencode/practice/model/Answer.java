@@ -5,10 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data
@@ -26,5 +24,5 @@ public class Answer {
 
     @JsonManagedReference
     @ManyToMany(mappedBy = "answers")
-    private List<AppUser> appUsers = new LinkedList<>();
+    private List<User> appUsers = new LinkedList<>();
 }

@@ -1,7 +1,6 @@
 package com.opencode.practice.service;
 
 import com.opencode.practice.assistClass.UserScore;
-import com.opencode.practice.model.AppUser;
 import com.opencode.practice.model.Questionnaire;
 import org.springframework.stereotype.Service;
 

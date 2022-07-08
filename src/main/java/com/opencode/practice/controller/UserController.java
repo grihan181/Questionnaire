@@ -1,13 +1,11 @@
 package com.opencode.practice.controller;
 
 import com.opencode.practice.assistClass.UserScore;
-import com.opencode.practice.model.AppUser;
 import com.opencode.practice.model.Questionnaire;
 import com.opencode.practice.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

@@ -1,6 +1,6 @@
-package com.opencode.practice.security.rest;
+package com.opencode.practice.controller;
 
-import com.opencode.practice.security.model.Developer;
+import com.opencode.practice.model.Developer;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 

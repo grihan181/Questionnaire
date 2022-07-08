@@ -1,5 +1,6 @@
 package com.opencode.practice.service.impl;
 
+import com.opencode.practice.assistClass.UserScore;
 import com.opencode.practice.model.Answer;
 import com.opencode.practice.model.AppUser;
 import com.opencode.practice.model.Question;
@@ -12,9 +13,8 @@ import com.opencode.practice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 
@@ -33,20 +33,17 @@ public class UserServiceImpl implements UserService {
         return questionnaireRepo.findAll();
     }
 
-    ////Must make
     @Override
     public void saveAnswers(List<Integer> answers, long questionaireId, long userId) {
         AppUser user = userRepo.findById(userId).get();
         List<Question> questions = questionRepo.findQuestionsByQuestionnaireId(questionaireId);
-        System.out.println(questions);
 
-        Set<Answer> usersAnswers = new HashSet<>();
+        List<Answer> usersAnswers = new LinkedList<>();
 
         for(int i = 0; i < questions.size(); i++) {
             List<Answer> answersInOneQuestion = questions.get(i).getAnswers();
             usersAnswers.add(answersInOneQuestion.get(answers.get(i)));
         }
-        System.out.println("Вывод" + usersAnswers);
         user.setAnswers(usersAnswers);
         userRepo.save(user);
     }
@@ -54,6 +51,34 @@ public class UserServiceImpl implements UserService {
     @Override
     public Questionnaire getQuestionnaireById(long id) {
         return questionnaireRepo.findById(id).get();
-    }//
+    }
 
+    @Override
+    public List<UserScore> getLeaderBordInOneQuestion(long id) {
+        List<UserScore> userScores = new LinkedList<>();
+        Questionnaire questionnaire = questionnaireRepo.findById(id).get();
+
+        List<AppUser> users = userRepo.findUsersByQuestionnaireId(id);
+
+        List<UserScore> finalUserScores = userScores;
+        users.forEach(appUser -> {
+            int userRightAnswers = 0;
+            for(int i = 0; i < questionnaire.getQuestions().size(); i++) {
+                int rightAnswer = questionnaire.getQuestions().get(i).getRightAnswerIdx();
+                boolean userAnswer = questionnaire.getQuestions().get(i).getAnswers().get(rightAnswer).getAppUsers().stream().anyMatch(u -> u.getId() == appUser.getId());
+
+                if(userAnswer) {
+                    userRightAnswers++;
+                }
+            }
+            finalUserScores.add(new UserScore(appUser, userRightAnswers));
+
+        });
+        userScores = finalUserScores.stream()
+                .sorted(Comparator.comparingInt(UserScore::getScore)
+                        .reversed())
+                .collect(Collectors.toList());
+
+        return userScores;
+    }
 }

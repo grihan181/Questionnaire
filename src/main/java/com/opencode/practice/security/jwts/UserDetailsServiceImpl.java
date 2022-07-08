@@ -1,7 +1,7 @@
 package com.opencode.practice.security.jwts;
 
-import com.opencode.practice.security.model.User;
-import com.opencode.practice.security.repository.UserRepository;
+import com.opencode.practice.model.User;
+import com.opencode.practice.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

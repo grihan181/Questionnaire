@@ -1,6 +1,9 @@
 package com.opencode.practice.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.LinkedList;
@@ -12,7 +15,7 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
     private String email;
     private String password;
     private String username;
@@ -20,6 +23,7 @@ public class User {
     private Role role;
     @Enumerated(value = EnumType.STRING)
     private Status status;
+
 
     @ManyToMany
     @JoinTable(

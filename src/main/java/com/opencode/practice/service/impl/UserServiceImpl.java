@@ -1,6 +1,9 @@
 package com.opencode.practice.service.impl;
 
+import com.opencode.practice.Projection.UserView;
+import com.opencode.practice.assistClass.QuestionnaireScore;
 import com.opencode.practice.assistClass.UserScore;
+import com.opencode.practice.Projection.AnswerIdOnly;
 import com.opencode.practice.model.Answer;
 import com.opencode.practice.model.User;
 import com.opencode.practice.model.Question;
@@ -36,42 +39,34 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveAnswers(List<Integer> answers, long questionnaireId, long userId) {
         User user = userRepo.findById(userId).get();
-        List<Question> questions = questionRepo.findQuestionsByQuestionnaireId(questionnaireId);
 
-        List<Answer> usersAnswers = new LinkedList<>();
-
-        for(int i = 0; i < questions.size(); i++) {
-            List<Answer> answersInOneQuestion = questions.get(i).getAnswers();
-            usersAnswers.add(answersInOneQuestion.get(answers.get(i)));
-        }
-        user.setAnswers(usersAnswers);
+        user.getAnswers().addAll(undestandingUserAnswers(answers, questionnaireId));
         userRepo.save(user);
     }
-
     @Override
-    public Questionnaire getQuestionnaireById(long id) {
-        return questionnaireRepo.findById(id).get();
+    public void updateAnswers(List<Integer> answers, long questionnaireId, long userId) {
+        User user = userRepo.findById(userId).get();
+
+        answerRepo.deleteAnswersInUsersAnswer(userId, questionnaireId);
+        user.getAnswers().addAll(undestandingUserAnswers(answers, questionnaireId));
+        userRepo.save(user);
+    }
+    @Override
+    public Questionnaire getQuestionnaireById(long questionnaireId) {
+        return questionnaireRepo.findById(questionnaireId).get();
     }
 
     @Override
-    public List<UserScore> getLeaderBordInOneQuestionnaire(long id) {
+    public List<UserScore> getLeaderBordInOneQuestionnaire(long questionnaireId) {
         List<UserScore> userScores = new LinkedList<>();
-        Questionnaire questionnaire = questionnaireRepo.findById(id).get();
+        Questionnaire questionnaire = questionnaireRepo.findById(questionnaireId).get();
 
-        List<User> users = userRepo.findUsersByQuestionnaireId(id);
+        List<UserView> users = userRepo.findUsersByQuestionnaireId(questionnaireId);
 
         List<UserScore> finalUserScores = userScores;
         users.forEach(appUser -> {
-            int userRightAnswers = 0;
-            for(int i = 0; i < questionnaire.getQuestions().size(); i++) {
-                int rightAnswer = questionnaire.getQuestions().get(i).getRightAnswerIdx();
-                boolean userAnswer = questionnaire.getQuestions().get(i).getAnswers().get(rightAnswer).getUsers().stream().anyMatch(u -> u.getId() == appUser.getId());
-
-                if(userAnswer) {
-                    userRightAnswers++;
-                }
-            }
-            finalUserScores.add(new UserScore(appUser, userRightAnswers));
+            finalUserScores.add(new UserScore(appUser, getUserScoreInOneQuestionnaire(
+                    getUserAnswersInOneQuestionnaire(appUser.getId(), questionnaireId), questionnaire, appUser)));
 
         });
         userScores = finalUserScores.stream()
@@ -80,5 +75,41 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
 
         return userScores;
+    }
+
+    @Override
+    public List<QuestionnaireScore> getUserScoreInAllQuestionnaires(long userId) {
+
+        return null;
+    }
+
+    //Helping methods
+    @Override
+    public List<AnswerIdOnly> getUserAnswersInOneQuestionnaire(long userId, long questionnaireId) {
+        return answerRepo.findAnswersInOneQuestionnaireByUserId(userId, questionnaireId);
+    }
+
+    @Override
+    public int getUserScoreInOneQuestionnaire(List<AnswerIdOnly> answers, Questionnaire questionnaire, UserView user) {
+        int score = 0;
+        for(Question question : questionnaire.getQuestions()) {
+            if(answers.stream().anyMatch(answer -> answer.getId() == question.getAnswers().get(question.getRightAnswerIdx()).getId())) {
+                score++;
+            }
+        }
+        return score;
+    }
+
+    @Override
+    public List<Answer> undestandingUserAnswers(List<Integer> answers, long questionnaireId) {
+        List<Question> questions = questionRepo.findQuestionsByQuestionnaireId(questionnaireId);
+
+        List<Answer> usersAnswers = new LinkedList<>();
+
+        for(int i = 0; i < questions.size(); i++) {
+            List<Answer> answersInOneQuestion = questions.get(i).getAnswers();
+            usersAnswers.add(answersInOneQuestion.get(answers.get(i)));
+        }
+        return usersAnswers;
     }
 }

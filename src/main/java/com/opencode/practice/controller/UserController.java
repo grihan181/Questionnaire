@@ -30,6 +30,12 @@ public class UserController {
                                 @RequestBody List<Integer> answers) {
         userService.saveAnswers(answers, questionnaireId, userId);
     }
+    @PutMapping("{userId}/{questionnaireId}")
+    public void updateAnswers(@PathVariable long userId,
+                            @PathVariable long questionnaireId,
+                            @RequestBody List<Integer> answers) {
+        userService.updateAnswers(answers, questionnaireId, userId);
+    }
     @GetMapping("leaderBoard/{id}")
     public List<UserScore> getLeaderBoard(@PathVariable long id) {
         return userService.getLeaderBordInOneQuestionnaire(id);

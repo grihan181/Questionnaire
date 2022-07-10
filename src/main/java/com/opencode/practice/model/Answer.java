@@ -1,12 +1,9 @@
 package com.opencode.practice.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.LinkedList;
-import java.util.List;
 
 @Entity
 @Data
@@ -21,8 +18,4 @@ public class Answer {
 /*    @ManyToOne
     @JoinColumn(name = "question_id")
     private Question question;*/
-
-    @JsonManagedReference
-    @ManyToMany(mappedBy = "answers")
-    private List<User> users = new LinkedList<>();
 }

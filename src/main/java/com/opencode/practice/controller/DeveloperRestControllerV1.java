@@ -1,6 +1,8 @@
 package com.opencode.practice.controller;
 
 import com.opencode.practice.model.Developer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +13,9 @@ import java.util.stream.Stream;
 @RestController
 @RequestMapping("/api/v1/developers")
 public class DeveloperRestControllerV1 {
+
+    private static final Logger logger = LoggerFactory.getLogger(DeveloperRestControllerV1.class);
+
     private List<Developer> DEVELOPERS = Stream.of(
             new Developer(1L, "Ivan", "Ivanov"),
             new Developer(2L, "Sergey", "Sergeev"),
@@ -19,12 +24,16 @@ public class DeveloperRestControllerV1 {
 
     @GetMapping
     public List<Developer> getAll() {
+
+        logger.info("Работа метода getAll");
         return DEVELOPERS;
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('developers:read')")
     public Developer getById(@PathVariable Long id) {
+        logger.info("Работа метода getById");
+
         return DEVELOPERS.stream().filter(developer -> developer.getId().equals(id))
                 .findFirst()
                 .orElse(null);

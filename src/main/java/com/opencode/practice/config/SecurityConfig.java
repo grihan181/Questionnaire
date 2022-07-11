@@ -1,8 +1,10 @@
 package com.opencode.practice.config;
 
+import com.opencode.practice.model.Permission;
 import com.opencode.practice.security.jwts.JwtTokenProwider.JwtConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
 
 @Configuration
 @EnableWebSecurity
@@ -31,8 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/api/v1/auth/login").permitAll()
-                .antMatchers("/api/regis").permitAll()
+                .antMatchers("/api/v1/auth/signIn").permitAll()
+//                .antMatchers(HttpMethod.GET, "/api/v1/developers").hasAuthority(Permission.DEVELOPERS_READ.getPermission())
                 .anyRequest()
                 .authenticated()
                 .and()

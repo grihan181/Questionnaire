@@ -1,15 +1,15 @@
 package com.opencode.practice.controller;
 
+import com.opencode.practice.exception.ExceptionData;
 import com.opencode.practice.model.Role;
 import com.opencode.practice.model.Status;
 import com.opencode.practice.model.User;
 import com.opencode.practice.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/regis")
@@ -18,9 +18,6 @@ public class RegisContoller {
     @Autowired
     private UserRepo userRepositorySecurity;
 
-    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-
     @PostMapping
     public void create(@RequestBody User user) {
         user.setPassword(String.valueOf(new BCryptPasswordEncoder(12).encode(user.getPassword())));
@@ -28,6 +25,11 @@ public class RegisContoller {
         user.setStatus(Status.ACTIVE);
         userRepositorySecurity.save(user);
     }
-
+    @ExceptionHandler
+    public ResponseEntity<ExceptionData> handleExeption(NoSuchCountExeption exeption) {
+        ExceptionData exceptionData = new ExceptionData();
+        exceptionData.setInfo(exeption.getMessage());
+        return new ResponseEntity<>(exceptionData, HttpStatus.FORBIDDEN);
+    }
 
 }

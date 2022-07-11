@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/api/v1/auth/signIn").permitAll()
-//                .antMatchers(HttpMethod.GET, "/api/v1/developers").hasAuthority(Permission.DEVELOPERS_READ.getPermission())
+                .antMatchers("/api/regis").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

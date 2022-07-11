@@ -9,13 +9,8 @@ import java.util.List;
 @Service
 public interface AdminService {
     List<User> findAllUsers();
-
     void deleteQuestionnaireById(long id);
-
     void addQuestionnaire(Questionnaire questionnaire);
-
-    List<Questionnaire> findAllQuestionnaire();
-
     void editQuestionnaire(long id, Questionnaire newQcuestionnaire);
 
 

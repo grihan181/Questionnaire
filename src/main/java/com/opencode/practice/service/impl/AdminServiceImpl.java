@@ -33,10 +33,6 @@ public class AdminServiceImpl implements AdminService {
         questionnaireRepo.save(questionnaire);
     }
 
-    @Override
-    public List<Questionnaire> findAllQuestionnaire() {
-        return questionnaireRepo.findAll();
-    }
 
     @Override
     public void editQuestionnaire(long id, Questionnaire newQcuestionnaire) {

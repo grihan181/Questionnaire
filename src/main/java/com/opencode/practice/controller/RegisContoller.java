@@ -6,6 +6,8 @@ import com.opencode.practice.model.Role;
 import com.opencode.practice.model.Status;
 import com.opencode.practice.model.User;
 import com.opencode.practice.repos.UserRepositorySecurity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,16 +21,19 @@ public class RegisContoller {
     @Autowired
     private UserRepositorySecurity userRepositorySecurity;
 
+    private static final Logger logger = LoggerFactory.getLogger(RegisContoller.class);
 
     @PostMapping
     public void create(@RequestBody User user) {
-        if (userRepositorySecurity.findByEmail(user.getEmail()) == null) {
+        User user1 = user;
+        logger.info("Работа метода create");
+//        if (userRepositorySecurity.findByEmail(user1.getEmail()).get) {
             user.setPassword(String.valueOf(new BCryptPasswordEncoder(12).encode(user.getPassword())));
             user.setRole(Role.USER);
             user.setStatus(Status.ACTIVE);
             userRepositorySecurity.save(user);
-        } else
-            throw new NoSuchCountExeption("user with such email already exists\n");
+//        } else
+//            throw new NoSuchCountExeption("user with such email already exists\n");
     }
 
     @ExceptionHandler

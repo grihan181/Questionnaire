@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
 
     @Autowired
-    private QuestionnaireRepo questionnaireRepo;
-
-    @Autowired
     private AdminService adminService;
 
    private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
@@ -24,20 +21,22 @@ public class AdminController {
     @PostMapping
     public void createQuestionary(@RequestBody Questionnaire questionary) {
         logger.info("Работа метода createQuestionary");
-        questionnaireRepo.save(questionary);
 
+        adminService.addQuestionnaire(questionary);
     }
 
     @DeleteMapping("{id}")
     public void deleteQuestionaty(@PathVariable long id) {
         logger.info("Работа метода deleteQuestionaty");
 
-        questionnaireRepo.deleteById(id);
+        adminService.deleteQuestionnaireById(id);
     }
 
     @PutMapping("{id}")
-    public void editQuestionaty(Questionnaire questionnaire) {
+    public void editQuestionaty(@PathVariable long id, @RequestBody Questionnaire questionnaire) {
         logger.info("Работа метода editQuestionaty");
+
+        adminService.editQuestionnaire(id, questionnaire);
     }
 
 

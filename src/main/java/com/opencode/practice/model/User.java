@@ -1,9 +1,7 @@
 package com.opencode.practice.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
-import org.hibernate.annotations.Cascade;
+
 
 import javax.persistence.*;
 import java.util.LinkedList;

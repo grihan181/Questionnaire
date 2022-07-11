@@ -34,7 +34,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<Questionnaire> finAllQuestionnaire() {
+    public List<Questionnaire> findAllQuestionnaire() {
         return questionnaireRepo.findAll();
     }
 

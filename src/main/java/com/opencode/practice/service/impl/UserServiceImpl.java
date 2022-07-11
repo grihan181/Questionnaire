@@ -1,5 +1,6 @@
 package com.opencode.practice.service.impl;
 
+import com.opencode.practice.Projection.QuestionnaireView;
 import com.opencode.practice.Projection.UserView;
 import com.opencode.practice.assistClass.QuestionnaireScore;
 import com.opencode.practice.assistClass.UserScore;
@@ -32,8 +33,8 @@ public class UserServiceImpl implements UserService {
     private QuestionRepo questionRepo;
 
     @Override
-    public List<Questionnaire> findAllQuestionnaire() {
-        return questionnaireRepo.findAll();
+    public List<QuestionnaireView> findAllQuestionnaire() {
+        return questionnaireRepo.findAllQuestionnairesAsQuestionnaireView();
     }
 
     @Override
@@ -64,11 +65,8 @@ public class UserServiceImpl implements UserService {
         List<UserView> users = userRepo.findUsersByQuestionnaireId(questionnaireId);
 
         List<UserScore> finalUserScores = userScores;
-        users.forEach(appUser -> {
-            finalUserScores.add(new UserScore(appUser, getUserScoreInOneQuestionnaire(
-                    getUserAnswersInOneQuestionnaire(appUser.getId(), questionnaireId), questionnaire, appUser)));
-
-        });
+        users.forEach(appUser -> finalUserScores.add(new UserScore(appUser, getUserScoreInOneQuestionnaire(
+                getUserAnswersInOneQuestionnaire(appUser.getId(), questionnaireId), questionnaire))));
         userScores = finalUserScores.stream()
                 .sorted(Comparator.comparingInt(UserScore::getScore)
                         .reversed())
@@ -79,8 +77,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<QuestionnaireScore> getUserScoreInAllQuestionnaires(long userId) {
+        List<QuestionnaireScore> questionnaireScores = new LinkedList<>();
+        List<Questionnaire> questionnaires = questionnaireRepo.findAllQuestionnairesByUserId(userId);
 
-        return null;
+        for(Questionnaire questionnaire : questionnaires) {
+            questionnaireScores.add(new QuestionnaireScore(questionnaire,  getUserScoreInOneQuestionnaire(
+                        getUserAnswersInOneQuestionnaire(userId, questionnaire.getId()), questionnaire)));
+        }
+        return questionnaireScores;
     }
 
     //Helping methods
@@ -90,7 +94,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int getUserScoreInOneQuestionnaire(List<AnswerIdOnly> answers, Questionnaire questionnaire, UserView user) {
+    public int getUserScoreInOneQuestionnaire(List<AnswerIdOnly> answers, Questionnaire questionnaire) {
         int score = 0;
         for(Question question : questionnaire.getQuestions()) {
             if(answers.stream().anyMatch(answer -> answer.getId() == question.getAnswers().get(question.getRightAnswerIdx()).getId())) {

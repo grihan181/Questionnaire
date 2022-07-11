@@ -1,46 +1,62 @@
 package com.opencode.practice.controller;
 
+import com.opencode.practice.Projection.QuestionnaireView;
+import com.opencode.practice.assistClass.QuestionnaireScore;
+import com.opencode.practice.assistClass.UserScore;
 import com.opencode.practice.model.Questionnaire;
-import com.opencode.practice.repos.QuestionnaireRepo;
 import com.opencode.practice.service.impl.UserServiceImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping(path = "user")
 public class UserController {
-
-
     @Autowired
-    private QuestionnaireRepo questionnaireRepo;
-
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    UserServiceImpl userService;
 
     @GetMapping
-    public List<Questionnaire> getQuestionnaireList() {
-        logger.info("работа метода getQuestionnaireList");
-
-        return questionnaireRepo.findAll();
+    public List<QuestionnaireView> getQuestionnaireList() {
+        return userService.findAllQuestionnaire();
     }
 
     @GetMapping("{id}")
-    @PreAuthorize("hasAuthority('developers:read')")
     public Questionnaire getQuestionaryById(@PathVariable long id) {
-        logger.info("работа метода getQuestionaryById");
-        return null;
+        return userService.getQuestionnaireById(id);
     }
 
-    @PostMapping("{userId}/{questionaireId}")
-    @PreAuthorize("hasAuthority('developers:read')")
+    @PostMapping("{userId}/{questionnaireId}")
     public void saveAnswers(@PathVariable long userId,
-                            @PathVariable long questionaireId,
-                            @RequestBody ArrayList<Integer> answers) {
+                                @PathVariable long questionnaireId,
+                                @RequestBody List<Integer> answers) {
+        userService.saveAnswers(answers, questionnaireId, userId);
+    }
+    @PutMapping("{userId}/{questionnaireId}")
+    public void updateAnswers(@PathVariable long userId,
+                            @PathVariable long questionnaireId,
+                            @RequestBody List<Integer> answers) {
+        userService.updateAnswers(answers, questionnaireId, userId);
+    }
+    @GetMapping("userscore/{userId}")
+    List<QuestionnaireScore> getUserScoreInAllQuestionnaires(@PathVariable long userId) {
+        return userService.getUserScoreInAllQuestionnaires(userId);
+    }
+
+    @GetMapping("leaderBoard/{id}")
+    public List<UserScore> getLeaderBoard(@PathVariable long id) {
+        return userService.getLeaderBordInOneQuestionnaire(id);
+    }
+
+
+    @PostMapping("login")
+    public void login() {
 
     }
 
+    @PostMapping("logout")
+    public void logout() {
+
+    }
 }

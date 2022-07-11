@@ -6,6 +6,9 @@ import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * @author Grihan,Artem
+ */
 @Data
 @Entity
 @Table(name = "AppUser")
@@ -20,7 +23,9 @@ public class User extends SecurityUser {
     @Enumerated(value = EnumType.STRING)
     private Status status;
 
-
+    /**
+     * @author Grihan
+     */
     @ManyToMany
     @JoinTable(
             name = "UsersAnswer",

@@ -8,6 +8,9 @@ import org.springframework.data.projection.ProjectionFactory;
 import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author Grihan
+ */
 @Component
 @Data
 @NoArgsConstructor

@@ -6,7 +6,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
-
+/**
+ * @author Grihan,Artem
+ */
 @Entity
 @Data
 @NoArgsConstructor
@@ -17,7 +19,7 @@ public class Questionnaire {
 
     private String title;
 
-   @OneToMany(cascade = CascadeType.ALL)
+   @OneToMany(cascade = CascadeType.REMOVE)
    @JoinColumn(name = "questionnaire_id")
    private List<Question> questions = new LinkedList<>();
 }

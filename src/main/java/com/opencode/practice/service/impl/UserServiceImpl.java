@@ -22,8 +22,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Класс с сервисами юзера
+ * @author Grihan
+ */
 @Service
-
 public class UserServiceImpl implements UserService {
     @Autowired
     private QuestionnaireRepo questionnaireRepo;
@@ -34,11 +37,21 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private QuestionRepo questionRepo;
 
+    /**
+     * @author Grihan
+     * @return возвращает все анкеты
+     */
     @Override
     public List<QuestionnaireView> findAllQuestionnaire() {
         return questionnaireRepo.findAllQuestionnairesAsQuestionnaireView();
     }
 
+    /**
+     * @author Grihan
+     * @param answers
+     * @param questionnaireId
+     * @param userId
+     */
     @Override
     public void saveAnswers(List<Integer> answers, long questionnaireId, long userId) {
         User user = userRepo.findById(userId).get();
@@ -46,6 +59,13 @@ public class UserServiceImpl implements UserService {
         user.getAnswers().addAll(undestandingUserAnswers(answers, questionnaireId));
         userRepo.save(user);
     }
+
+    /**
+     * @author Grihan
+     * @param answers
+     * @param questionnaireId
+     * @param userId
+     */
     @Override
     public void updateAnswers(List<Integer> answers, long questionnaireId, long userId) {
         User user = userRepo.findById(userId).get();
@@ -54,11 +74,22 @@ public class UserServiceImpl implements UserService {
         user.getAnswers().addAll(undestandingUserAnswers(answers, questionnaireId));
         userRepo.save(user);
     }
+
+    /**
+     * @author Grihan
+     * @param questionnaireId
+     * @return возвращает анкету
+     */
     @Override
     public Questionnaire getQuestionnaireById(long questionnaireId) {
         return questionnaireRepo.findById(questionnaireId).get();
     }
 
+    /**
+     * @author Grihan
+     * @param questionnaireId
+     * @return возвращает рейтинг пользователей
+     */
     @Override
     public List<UserScore> getLeaderBordInOneQuestionnaire(long questionnaireId) {
         List<UserScore> userScores = new LinkedList<>();
@@ -77,6 +108,11 @@ public class UserServiceImpl implements UserService {
         return userScores;
     }
 
+    /**
+     * @author Grihan
+     * @param userId
+     * @return возвращает баллы пользователя во всех анкетах
+     */
     @Override
     public List<QuestionnaireScore> getUserScoreInAllQuestionnaires(long userId) {
         List<QuestionnaireScore> questionnaireScores = new LinkedList<>();

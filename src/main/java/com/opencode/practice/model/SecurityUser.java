@@ -11,6 +11,9 @@ import javax.persistence.Transient;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * @author Artem
+ */
 @Data
 @MappedSuperclass
 @NoArgsConstructor

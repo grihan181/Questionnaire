@@ -21,7 +21,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * @author Artem
+ */
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/v1/auth")
@@ -37,6 +39,11 @@ public class AuthenticationRestControllerV1 {
     this.jwtTokenProvider = jwtTokenProvider;
   }
 
+  /**
+   * Регистрация пользователя
+   * @author Artem
+   * @param user
+   */
   @PostMapping("/signup")
   public void create(@RequestBody User user) {
     user.setPassword(String.valueOf(new BCryptPasswordEncoder(12).encode(user.getPassword())));
@@ -45,6 +52,12 @@ public class AuthenticationRestControllerV1 {
     userRepo.save(user);
   }
 
+  /**
+   * Авторизация пользователя
+   * @author Artem
+   * @param request
+   * @return
+   */
   @PostMapping("/signin")
   public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequestDTO request) {
     try {
@@ -60,12 +73,24 @@ public class AuthenticationRestControllerV1 {
     }
   }
 
+  /**
+   * Выход пользователя
+   * @author Artem
+   * @param request
+   * @param response
+   */
   @PostMapping("/signout")
   public void logout(HttpServletRequest request, HttpServletResponse response) {
     SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
     securityContextLogoutHandler.logout(request, response, null);
   }
 
+  /**
+   * Сообщение об ошибке JSON
+   * @author Artem
+   * @param exeption
+   * @return
+   */
   @ExceptionHandler
   public ResponseEntity<ExceptionData> handleExeption(NoSuchCountExeption exeption) {
     ExceptionData exceptionData = new ExceptionData();

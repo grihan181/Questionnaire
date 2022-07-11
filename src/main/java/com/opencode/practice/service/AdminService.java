@@ -5,7 +5,9 @@ import com.opencode.practice.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+/**
+ * @author Grihan
+ */
 @Service
 public interface AdminService {
     List<User> findAllUsers();

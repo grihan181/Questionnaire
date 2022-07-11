@@ -76,6 +76,21 @@ public class AuthenticationRestControllerV1 {
             throw new NoSuchCountExeption("Invalid email/password combination");
         }
     }
+  @PostMapping("/singin")
+  public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequestDTO request) {
+    logger.info("Работа метода signIn");
+    try {
+      authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+      User user = userRepositorySecurity.findByEmail(request.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));
+      String token = jwtTokenProvider.createToken(request.getEmail(), user.getRole().name());
+      Map<Object, Object> response = new HashMap<>();
+      response.put("email", request.getEmail());
+      response.put("token", token);
+      return ResponseEntity.ok(response);
+    } catch (AuthenticationException e) {
+      return new ResponseEntity<>("Invalid email/password combination", HttpStatus.FORBIDDEN);
+    }
+  }
 
     /**
      * Выход пользователя
@@ -91,4 +106,29 @@ public class AuthenticationRestControllerV1 {
         throw new NoSuchCountExeption("logout");
 
     }
+  @PostMapping("/singOut")
+  public void logout(HttpServletRequest request, HttpServletResponse response) {
+    logger.info("Работа метода signOut");
+    SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
+    securityContextLogoutHandler.logout(request, response, null);
+  }
+  @PostMapping("/regis")
+  public void create(@RequestBody User user) {
+    User user1 = user;
+    logger.info("Работа метода create");
+//        if (userRepositorySecurity.findByEmail(user1.getEmail()).get) {
+    user.setPassword(String.valueOf(new BCryptPasswordEncoder(12).encode(user.getPassword())));
+    user.setRole(Role.USER);
+    user.setStatus(Status.ACTIVE);
+    userRepositorySecurity.save(user);
+//        } else
+//            throw new NoSuchCountExeption("user with such email already exists\n");
+  }
+
+  @ExceptionHandler
+  public ResponseEntity<ExceptionData> handleExeption(NoSuchCountExeption exeption) {
+    ExceptionData exceptionData = new ExceptionData();
+    exceptionData.setInfo(exeption.getMessage());
+    return new ResponseEntity<>(exceptionData, HttpStatus.FORBIDDEN);
+  }
 }

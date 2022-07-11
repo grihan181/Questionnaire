@@ -3,20 +3,29 @@ package com.opencode.practice.security.jwts;
 import com.opencode.practice.model.Status;
 import com.opencode.practice.model.User;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
 @Data
-public class SecurityUser implements UserDetails {
+@MappedSuperclass
+@NoArgsConstructor
+public class SecurityUser implements UserDetails{
 
-    private final String username;
-    private final String password;
-    private final List<SimpleGrantedAuthority> authorities;
-    private final boolean isActive;
+    private String username;
+    private String password;
+
+    @Transient
+    private List<SimpleGrantedAuthority> authorities;
+
+    @Transient
+    private boolean isActive;
 
     public SecurityUser(String username, String password, List<SimpleGrantedAuthority> authorities, boolean isActive) {
         this.username = username;

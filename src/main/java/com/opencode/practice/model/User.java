@@ -1,5 +1,6 @@
 package com.opencode.practice.model;
 
+import com.opencode.practice.security.jwts.SecurityUser;
 import lombok.Data;
 
 
@@ -10,13 +11,12 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "AppUser")
-public class User {
+public class User extends SecurityUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String email;
-    private String password;
-    private String username;
+
     @Enumerated(value = EnumType.STRING)
     private Role role;
     @Enumerated(value = EnumType.STRING)

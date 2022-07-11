@@ -1,4 +1,3 @@
-/*
 package com.opencode.practice.controller;
 
 import com.opencode.practice.model.Role;
@@ -32,4 +31,3 @@ public class RegisContoller {
 
 
 }
-*/

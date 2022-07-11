@@ -1,6 +1,7 @@
 package com.opencode.practice.controller;
 
 import com.opencode.practice.exception.ExceptionData;
+import com.opencode.practice.exception.NoSuchCountExeption;
 import com.opencode.practice.model.Role;
 import com.opencode.practice.model.Status;
 import com.opencode.practice.model.User;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/regis")
 public class RegisContoller {
 

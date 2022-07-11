@@ -1,7 +1,6 @@
 package com.opencode.practice.assistClass;
 
-import com.opencode.practice.Projection.UserView;
-import com.opencode.practice.model.User;
+import com.opencode.practice.projection.UserView;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;

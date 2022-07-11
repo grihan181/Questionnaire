@@ -1,6 +1,6 @@
 package com.opencode.practice.controller;
 
-import com.opencode.practice.Projection.QuestionnaireView;
+import com.opencode.practice.projection.QuestionnaireView;
 import com.opencode.practice.assistClass.QuestionnaireScore;
 import com.opencode.practice.assistClass.UserScore;
 import com.opencode.practice.model.Questionnaire;

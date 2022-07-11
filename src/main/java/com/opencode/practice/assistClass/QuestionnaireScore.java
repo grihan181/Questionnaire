@@ -1,6 +1,6 @@
 package com.opencode.practice.assistClass;
 
-import com.opencode.practice.Projection.QuestionnaireView;
+import com.opencode.practice.projection.QuestionnaireView;
 import com.opencode.practice.model.Questionnaire;
 import lombok.Data;
 import lombok.NoArgsConstructor;

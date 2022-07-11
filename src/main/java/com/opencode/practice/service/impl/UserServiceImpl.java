@@ -1,10 +1,10 @@
 package com.opencode.practice.service.impl;
 
-import com.opencode.practice.Projection.QuestionnaireView;
-import com.opencode.practice.Projection.UserView;
+import com.opencode.practice.projection.QuestionnaireView;
+import com.opencode.practice.projection.UserView;
 import com.opencode.practice.assistClass.QuestionnaireScore;
 import com.opencode.practice.assistClass.UserScore;
-import com.opencode.practice.Projection.AnswerIdOnly;
+import com.opencode.practice.projection.AnswerIdOnly;
 import com.opencode.practice.model.Answer;
 import com.opencode.practice.model.User;
 import com.opencode.practice.model.Question;

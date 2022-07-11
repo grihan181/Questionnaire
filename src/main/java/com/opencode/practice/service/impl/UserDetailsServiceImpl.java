@@ -1,5 +1,6 @@
-package com.opencode.practice.security.jwts;
+package com.opencode.practice.service.impl;
 
+import com.opencode.practice.model.SecurityUser;
 import com.opencode.practice.model.User;
 import com.opencode.practice.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;

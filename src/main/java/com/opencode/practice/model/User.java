@@ -1,8 +1,6 @@
 package com.opencode.practice.model;
 
-import com.opencode.practice.security.jwts.SecurityUser;
 import lombok.Data;
-
 
 import javax.persistence.*;
 import java.util.LinkedList;
@@ -13,7 +11,7 @@ import java.util.List;
 @Table(name = "AppUser")
 public class User extends SecurityUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String email;
 

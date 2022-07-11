@@ -1,14 +1,19 @@
 package com.opencode.practice.controller;
 
+import com.opencode.practice.exception.ExceptionData;
+import com.opencode.practice.exception.NoSuchCountExeption;
+import com.opencode.practice.model.Role;
+import com.opencode.practice.model.Status;
+import com.opencode.practice.model.User;
 import com.opencode.practice.repos.UserRepo;
 import com.opencode.practice.security.jwts.JwtTokenProwider.JwtTokenProvider;
-import com.opencode.practice.model.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +37,15 @@ public class AuthenticationRestControllerV1 {
     this.jwtTokenProvider = jwtTokenProvider;
   }
 
-  @PostMapping("/login")
+  @PostMapping("/signup")
+  public void create(@RequestBody User user) {
+    user.setPassword(String.valueOf(new BCryptPasswordEncoder(12).encode(user.getPassword())));
+    user.setRole(Role.USER);
+    user.setStatus(Status.ACTIVE);
+    userRepo.save(user);
+  }
+
+  @PostMapping("/signin")
   public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequestDTO request) {
     try {
       authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
@@ -47,9 +60,16 @@ public class AuthenticationRestControllerV1 {
     }
   }
 
-  @PostMapping("/logout")
+  @PostMapping("/signout")
   public void logout(HttpServletRequest request, HttpServletResponse response) {
     SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
     securityContextLogoutHandler.logout(request, response, null);
+  }
+
+  @ExceptionHandler
+  public ResponseEntity<ExceptionData> handleExeption(NoSuchCountExeption exeption) {
+    ExceptionData exceptionData = new ExceptionData();
+    exceptionData.setInfo(exeption.getMessage());
+    return new ResponseEntity<>(exceptionData, HttpStatus.FORBIDDEN);
   }
 }

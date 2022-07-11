@@ -1,15 +1,13 @@
-package com.opencode.practice.security.jwts;
+package com.opencode.practice.model;
 
-import com.opencode.practice.model.Status;
-import com.opencode.practice.model.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
 import java.util.Collection;
 import java.util.List;
 

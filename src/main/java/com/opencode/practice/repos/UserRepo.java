@@ -1,7 +1,7 @@
 package com.opencode.practice.repos;
 
-import com.opencode.practice.projection.UserView;
 import com.opencode.practice.model.User;
+import com.opencode.practice.projection.UserView;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

@@ -1,7 +1,7 @@
 package com.opencode.practice.repos;
 
-import com.opencode.practice.projection.AnswerIdOnly;
 import com.opencode.practice.model.Answer;
+import com.opencode.practice.projection.AnswerIdOnly;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

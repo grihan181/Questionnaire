@@ -17,9 +17,7 @@ public class Questionnaire {
 
     private String title;
 
-   @OneToMany(/*mappedBy = "questionnaire"*/
-           cascade = CascadeType.ALL)
+   @OneToMany(cascade = CascadeType.ALL)
    @JoinColumn(name = "questionnaire_id")
    private List<Question> questions = new LinkedList<>();
-
 }

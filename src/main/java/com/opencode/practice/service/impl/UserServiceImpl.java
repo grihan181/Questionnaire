@@ -1,14 +1,14 @@
 package com.opencode.practice.service.impl;
 
-import com.opencode.practice.projection.QuestionnaireView;
-import com.opencode.practice.projection.UserView;
 import com.opencode.practice.assistClass.QuestionnaireScore;
 import com.opencode.practice.assistClass.UserScore;
-import com.opencode.practice.projection.AnswerIdOnly;
 import com.opencode.practice.model.Answer;
-import com.opencode.practice.model.User;
 import com.opencode.practice.model.Question;
 import com.opencode.practice.model.Questionnaire;
+import com.opencode.practice.model.User;
+import com.opencode.practice.projection.AnswerIdOnly;
+import com.opencode.practice.projection.QuestionnaireView;
+import com.opencode.practice.projection.UserView;
 import com.opencode.practice.repos.AnswerRepo;
 import com.opencode.practice.repos.QuestionRepo;
 import com.opencode.practice.repos.QuestionnaireRepo;
@@ -17,7 +17,9 @@ import com.opencode.practice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service

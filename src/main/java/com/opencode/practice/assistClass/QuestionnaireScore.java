@@ -1,7 +1,7 @@
 package com.opencode.practice.assistClass;
 
-import com.opencode.practice.projection.QuestionnaireView;
 import com.opencode.practice.model.Questionnaire;
+import com.opencode.practice.projection.QuestionnaireView;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.projection.ProjectionFactory;

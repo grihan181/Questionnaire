@@ -2,6 +2,9 @@ package com.opencode.practice.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.LinkedList;
@@ -14,7 +17,8 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-public class Question {
+@EntityListeners(AuditingEntityListener.class)
+public class Question extends Auditable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -23,7 +27,7 @@ public class Question {
 
     private int rightAnswerIdx;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn(name = "question_id")
     private List<Answer> answers = new LinkedList<>();
 }

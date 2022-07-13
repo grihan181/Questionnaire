@@ -53,6 +53,8 @@ public class AuthenticationRestControllerV1 {
         user.setRole(Role.USER);
         user.setStatus(Status.ACTIVE);
         userRepo.save(user);
+        throw new NoSuchCountExeption("Успешная регистрация");
+
     }
 
     /**
@@ -74,7 +76,7 @@ public class AuthenticationRestControllerV1 {
             response.put("token", token);
             return ResponseEntity.ok(response);
         } catch (AuthenticationException e) {
-            return new ResponseEntity<>("Invalid email/password combination", HttpStatus.FORBIDDEN);
+            throw new NoSuchCountExeption("Invalid email/password combination");
         }
     }
 
@@ -89,19 +91,9 @@ public class AuthenticationRestControllerV1 {
     public void logout(HttpServletRequest request, HttpServletResponse response) {
         SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
         securityContextLogoutHandler.logout(request, response, null);
+        throw new NoSuchCountExeption("logout");
+
     }
 
-    /**
-     * Сообщение об ошибке JSON
-     *
-     * @param exeption
-     * @return
-     * @author Artem
-     */
-    @ExceptionHandler
-    public ResponseEntity<ExceptionData> handleExeption(NoSuchCountExeption exeption) {
-        ExceptionData exceptionData = new ExceptionData();
-        exceptionData.setInfo(exeption.getMessage());
-        return new ResponseEntity<>(exceptionData, HttpStatus.FORBIDDEN);
-    }
+
 }

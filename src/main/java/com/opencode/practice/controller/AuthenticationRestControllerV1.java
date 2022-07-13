@@ -63,7 +63,6 @@ public class AuthenticationRestControllerV1 {
      * @author Artem
      */
     @PostMapping("/signin")
-    @ResponseStatus(code = HttpStatus.BAD_GATEWAY, reason = "User doesn't exists")
     public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequestDTO request) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
@@ -74,8 +73,8 @@ public class AuthenticationRestControllerV1 {
             response.put("token", token);
             return ResponseEntity.ok(response);
         } catch (AuthenticationException e) {
-            return new ResponseEntity<>("Invalid email/password combination", HttpStatus.FORBIDDEN);
-        }
+            throw new NoSuchCountExeption("Invalid email/password combination");
+}
     }
 
     /**

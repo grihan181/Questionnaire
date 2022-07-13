@@ -1,6 +1,6 @@
 package com.opencode.practice.repos;
 
-import com.opencode.practice.projection.AnswerScore;
+import com.opencode.practice.projection.Statistics;
 import com.opencode.practice.model.Answer;
 import com.opencode.practice.projection.AnswerIdOnly;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -41,5 +41,5 @@ public interface AnswerRepo extends JpaRepository<Answer,Long> {
             " ON first_question.app_user_id = second_question.app_user_id)" +
             " SELECT firstAnswer, firstAText, secondAnswer,secondAText, COUNT(*) AS score" +
             " FROM joining GROUP BY firstAnswer, secondAnswer, firstAText,secondAText ORDER BY score desc")
-    List<AnswerScore> findUsersStatistics(long questionFirstId, long questionSecondId);
+    List<Statistics> findUsersStatistics(long questionFirstId, long questionSecondId);
 }

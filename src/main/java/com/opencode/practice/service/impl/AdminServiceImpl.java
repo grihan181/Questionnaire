@@ -1,6 +1,6 @@
 package com.opencode.practice.service.impl;
 
-import com.opencode.practice.projection.AnswerScore;
+import com.opencode.practice.projection.Statistics;
 import com.opencode.practice.exception.QuestionnaireNotFoundException;
 import com.opencode.practice.model.Questionnaire;
 import com.opencode.practice.model.User;
@@ -81,7 +81,7 @@ public class AdminServiceImpl implements AdminService {
         }).orElseThrow(() -> new QuestionnaireNotFoundException(id));
     }
 
-    public List<AnswerScore> getUsersStatistics(long questionFirstId,long questionSecondId) {
+    public List<Statistics> getUsersStatistics(long questionFirstId, long questionSecondId) {
         return answerRepo.findUsersStatistics(questionFirstId, questionSecondId);
     }
 }

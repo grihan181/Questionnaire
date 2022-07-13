@@ -1,6 +1,6 @@
 package com.opencode.practice.controller;
 
-import com.opencode.practice.projection.AnswerScore;
+import com.opencode.practice.projection.Statistics;
 import com.opencode.practice.exception.NoSuchCountExeption;
 import com.opencode.practice.model.Questionnaire;
 import com.opencode.practice.model.User;
@@ -62,7 +62,7 @@ public class AdminController {
 
     @GetMapping("findUsersStatistics/{questionFirstId}/{questionSecondId}")
     @PreAuthorize("hasAuthority('developers:write')")
-    public List<AnswerScore> findUsersStatistics(@PathVariable long questionFirstId,@PathVariable long questionSecondId) {
+    public List<Statistics> findUsersStatistics(@PathVariable long questionFirstId, @PathVariable long questionSecondId) {
         return adminService.getUsersStatistics(questionFirstId, questionSecondId);
     }
 

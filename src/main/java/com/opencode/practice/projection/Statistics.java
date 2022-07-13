@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 /**
  * @author Grihan
  */
-public interface AnswerScore {
+public interface Statistics {
      long getFirstAnswer();
      String getFirstAtext();
 

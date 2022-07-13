@@ -1,9 +1,6 @@
 package com.opencode.practice.security.jwts.JwtTokenProwider;
 
 import io.jsonwebtoken.*;
-import lombok.Getter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -18,6 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Base64;
 import java.util.Date;
 
+/**
+ * @author Artem
+ */
 @Component
 public class JwtTokenProvider {
 
@@ -39,6 +39,12 @@ public class JwtTokenProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
+    /**
+     * @author Artem
+     * @param username
+     * @param role
+     * @return Создает токен пользователя
+     */
     public String createToken(String username, String role) {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("role", role);
@@ -53,6 +59,11 @@ public class JwtTokenProvider {
                 .compact();
     }
 
+    /**
+     * @author Artem
+     * @param token
+     * @return валидатор токена
+     */
     public boolean validateToken(String token) {
         try {
             Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
@@ -62,15 +73,30 @@ public class JwtTokenProvider {
         }
     }
 
+    /**
+     *
+     * @param token
+     * @return
+     */
     public Authentication getAuthentication(String token) {
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(getUsername(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
+    /**
+     *
+     * @param token
+     * @return
+     */
     public String getUsername(String token) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
+    /**
+     *
+     * @param request
+     * @return
+     */
     public String resolveToken(HttpServletRequest request) {
         return request.getHeader(authorizationHeader);
     }

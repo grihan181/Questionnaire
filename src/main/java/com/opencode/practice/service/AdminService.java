@@ -1,20 +1,19 @@
 package com.opencode.practice.service;
 
-import com.opencode.practice.model.AppUser;
 import com.opencode.practice.model.Questionnaire;
+import com.opencode.practice.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+/**
+ * @author Grihan
+ */
 @Service
 public interface AdminService {
-    List<AppUser> findAllUsers();
-
+    List<User> findAllUsers();
     void deleteQuestionnaireById(long id);
-
     void addQuestionnaire(Questionnaire questionnaire);
-
-    List<Questionnaire> finAllQuestionnaire();
-
     void editQuestionnaire(long id, Questionnaire newQcuestionnaire);
+
+
 }

@@ -1,19 +1,22 @@
 package com.opencode.practice.assistClass;
 
-import com.opencode.practice.model.AppUser;
+import com.opencode.practice.projection.UserView;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author Grihan
+ */
 @Component
 @Data
 @NoArgsConstructor
 public class UserScore {
-    private AppUser user;
+    private UserView user;
 
     private int score;
 
-    public UserScore(AppUser user, int score) {
+    public UserScore(UserView user, int score) {
         this.user = user;
         this.score = score;
     }

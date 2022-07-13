@@ -6,6 +6,7 @@ import com.opencode.practice.model.Questionnaire;
 import com.opencode.practice.projection.QuestionnaireView;
 import com.opencode.practice.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,7 @@ public class UserController {
 
     @GetMapping("{id}")
     @PreAuthorize("hasAuthority('developers:read')")
+    @ResponseStatus(code = HttpStatus.BAD_GATEWAY, reason = "HUI")
     public Questionnaire getQuestionaryById(@PathVariable long id) {
         return userService.getQuestionnaireById(id);
     }

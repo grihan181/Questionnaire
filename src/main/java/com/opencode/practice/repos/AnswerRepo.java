@@ -1,5 +1,6 @@
 package com.opencode.practice.repos;
 
+import com.opencode.practice.assistClass.AnswerScore;
 import com.opencode.practice.model.Answer;
 import com.opencode.practice.projection.AnswerIdOnly;
 import com.opencode.practice.projection.AnswerView;
@@ -32,8 +33,14 @@ public interface AnswerRepo extends JpaRepository<Answer,Long> {
     List<AnswerIdOnly> findAnswersInOneQuestionnaireByUserId(long  Id, long questionnaireId);
 
 
-    @Query(nativeQuery = true, value = "WITH first_q AS (" +
-            "SELECT app_user_id, answer_id FROM users_answer WHERE answer_id = ?1 OR answer_id = ?2)" +
-            " SELECT COUNT(*) AS score FROM counting group by app_user_id WHERE answer_id = ?1")
-    List<AnswerView> findUsersStatistics(long questionnaireId, long questionFirstId, long questionSecondId);
+    @Query(nativeQuery = true, value = "WITH first_question AS (" +
+            " SELECT app_user_id, answer_id, a.text FROM users_answer ua join answer a on ua.answer_id  = a.id   WHERE a.question_id = 73), " +
+            " second_question AS (SELECT app_user_id, answer_id, a.text FROM users_answer ua JOIN answer a on ua.answer_id  = a.id   WHERE a.question_id = 76)," +
+            " joining AS (select first_question.app_user_id, first_question.answer_id AS firstAnswer," +
+            " first_question.text AS firstQText, second_question.answer_id as secondAnswer, second_question.text AS secondQText" +
+            " FROM first_question FULL JOIN second_question " +
+            " ON first_question.app_user_id = second_question.app_user_id)" +
+            " SELECT firstanswer, firstQText,  secondanswer,secondQText, count(*) as user_count" +
+            " FROM joining GROUP BY firstanswer, secondanswer, firstQText,secondQText ORDER BY user_count desc")
+    List<AnswerScore> findUsersStatistics(long questionFirstId, long questionSecondId);
 }

@@ -2,6 +2,7 @@ package com.opencode.practice.repos;
 
 import com.opencode.practice.model.Answer;
 import com.opencode.practice.projection.AnswerIdOnly;
+import com.opencode.practice.projection.AnswerView;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -29,4 +30,10 @@ public interface AnswerRepo extends JpaRepository<Answer,Long> {
             " ON qnn.id = q.questionnaire_id ON q.id = a.question_id ON a.id  = ua.answer_id ON ua.app_user_id = au.id" +
             " WHERE au.id  = ?1 AND qnn.id = ?2 ORDER BY a.id  ASC")
     List<AnswerIdOnly> findAnswersInOneQuestionnaireByUserId(long  Id, long questionnaireId);
+
+
+    @Query(nativeQuery = true, value = "WITH first_q AS (" +
+            "SELECT app_user_id, answer_id FROM users_answer WHERE answer_id = ?1 OR answer_id = ?2)" +
+            " SELECT COUNT(*) AS score FROM counting group by app_user_id WHERE answer_id = ?1")
+    List<AnswerView> findUsersStatistics(long questionnaireId, long questionFirstId, long questionSecondId);
 }

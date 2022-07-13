@@ -53,6 +53,8 @@ public class AuthenticationRestControllerV1 {
         user.setRole(Role.USER);
         user.setStatus(Status.ACTIVE);
         userRepo.save(user);
+        throw new NoSuchCountExeption("Успешная регистрация");
+
     }
 
     /**
@@ -63,6 +65,7 @@ public class AuthenticationRestControllerV1 {
      * @author Artem
      */
     @PostMapping("/signin")
+    @ResponseStatus(code = HttpStatus.BAD_GATEWAY, reason = "User doesn't exists")
     public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequestDTO request) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
@@ -74,7 +77,7 @@ public class AuthenticationRestControllerV1 {
             return ResponseEntity.ok(response);
         } catch (AuthenticationException e) {
             throw new NoSuchCountExeption("Invalid email/password combination");
-}
+        }
     }
 
     /**
@@ -88,19 +91,9 @@ public class AuthenticationRestControllerV1 {
     public void logout(HttpServletRequest request, HttpServletResponse response) {
         SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
         securityContextLogoutHandler.logout(request, response, null);
+        throw new NoSuchCountExeption("logout");
+
     }
 
-    /**
-     * Сообщение об ошибке JSON
-     *
-     * @param exeption
-     * @return
-     * @author Artem
-     */
-    @ExceptionHandler
-    public ResponseEntity<ExceptionData> handleExeption(NoSuchCountExeption exeption) {
-        ExceptionData exceptionData = new ExceptionData();
-        exceptionData.setInfo(exeption.getMessage());
-        return new ResponseEntity<>(exceptionData, HttpStatus.FORBIDDEN);
-    }
+
 }

@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 /**
  * @author Artem
  */
-@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "HUI")
 
 public class QuestionnaireNotFoundException extends RuntimeException{
     public QuestionnaireNotFoundException(long id) {

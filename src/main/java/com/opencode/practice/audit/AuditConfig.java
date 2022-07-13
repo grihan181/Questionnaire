@@ -1,8 +1,5 @@
-package com.opencode.practice.model;
+package com.opencode.practice.audit;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Setter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;

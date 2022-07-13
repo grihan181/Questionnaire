@@ -1,9 +1,8 @@
 package com.opencode.practice.model;
 
+import com.opencode.practice.audit.Auditable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -18,7 +17,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class Question extends Auditable{
+public class Question extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;

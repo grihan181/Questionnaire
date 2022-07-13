@@ -1,4 +1,4 @@
-package com.opencode.practice.model;
+package com.opencode.practice.audit;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.AuditorAware;

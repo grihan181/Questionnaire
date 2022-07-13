@@ -1,4 +1,4 @@
-package com.opencode.practice.model;
+package com.opencode.practice.audit;
 
 import lombok.Data;
 import org.springframework.data.annotation.CreatedBy;

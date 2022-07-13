@@ -2,13 +2,11 @@ package com.opencode.practice.controller;
 
 import com.opencode.practice.exception.ExceptionData;
 import com.opencode.practice.exception.NoSuchCountExeption;
-import com.opencode.practice.model.AuditConfig;
 import com.opencode.practice.model.Role;
 import com.opencode.practice.model.Status;
 import com.opencode.practice.model.User;
 import com.opencode.practice.repos.UserRepo;
 import com.opencode.practice.security.jwts.JwtTokenProwider.JwtTokenProvider;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

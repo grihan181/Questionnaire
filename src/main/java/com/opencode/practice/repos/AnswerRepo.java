@@ -34,12 +34,12 @@ public interface AnswerRepo extends JpaRepository<Answer,Long> {
 
     @Query(nativeQuery = true, value = "WITH first_question AS (" +
             " SELECT app_user_id, answer_id, a.text FROM users_answer ua join answer a on ua.answer_id  = a.id WHERE a.question_id = ?1), " +
-            " second_question AS (SELECT app_user_id, answer_id, a.text FROM users_answer ua JOIN answer a on ua.answer_id  = a.id WHERE a.question_id = ?2)," +
+            " second_question AS (SELECT app_user_id, answer_id, a.text FROM users_answer ua JOIN answer a ON ua.answer_id  = a.id WHERE a.question_id = ?2)," +
             " joining AS (select first_question.app_user_id, first_question.answer_id AS firstAnswer," +
-            " first_question.text AS firstQText, second_question.answer_id as secondAnswer, second_question.text AS secondQText" +
+            " first_question.text AS firstQText, second_question.answer_id AS secondAnswer, second_question.text AS secondQText" +
             " FROM first_question FULL JOIN second_question " +
             " ON first_question.app_user_id = second_question.app_user_id)" +
-            " SELECT firstAnswer, firstAText, secondAnswer,secondAText, count(*) as score" +
+            " SELECT firstAnswer, firstAText, secondAnswer,secondAText, COUNT(*) AS score" +
             " FROM joining GROUP BY firstAnswer, secondAnswer, firstAText,secondAText ORDER BY score desc")
     List<AnswerScore> findUsersStatistics(long questionFirstId, long questionSecondId);
 }

@@ -63,6 +63,7 @@ public class AuthenticationRestControllerV1 {
      * @author Artem
      */
     @PostMapping("/signin")
+    @ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "User doesn't exists")
     public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequestDTO request) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));

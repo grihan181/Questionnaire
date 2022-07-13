@@ -1,6 +1,6 @@
 package com.opencode.practice.service.impl;
 
-import com.opencode.practice.assistClass.AnswerScore;
+import com.opencode.practice.projection.AnswerScore;
 import com.opencode.practice.exception.QuestionnaireNotFoundException;
 import com.opencode.practice.model.Questionnaire;
 import com.opencode.practice.model.User;
@@ -10,7 +10,6 @@ import com.opencode.practice.repos.UserRepo;
 import com.opencode.practice.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -26,6 +25,7 @@ public class AdminServiceImpl implements AdminService {
     QuestionnaireRepo questionnaireRepo;
     @Autowired
     AnswerRepo answerRepo;
+
 
     /**
      * @author Grihan

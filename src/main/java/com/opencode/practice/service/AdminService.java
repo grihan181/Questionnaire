@@ -1,6 +1,6 @@
 package com.opencode.practice.service;
 
-import com.opencode.practice.assistClass.AnswerScore;
+import com.opencode.practice.projection.AnswerScore;
 import com.opencode.practice.model.Questionnaire;
 import com.opencode.practice.model.User;
 import org.springframework.stereotype.Service;

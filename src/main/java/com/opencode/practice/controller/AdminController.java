@@ -1,10 +1,9 @@
 package com.opencode.practice.controller;
 
-import com.opencode.practice.assistClass.AnswerScore;
+import com.opencode.practice.projection.AnswerScore;
 import com.opencode.practice.exception.NoSuchCountExeption;
 import com.opencode.practice.model.Questionnaire;
 import com.opencode.practice.model.User;
-import com.opencode.practice.projection.AnswerView;
 import com.opencode.practice.service.AdminService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

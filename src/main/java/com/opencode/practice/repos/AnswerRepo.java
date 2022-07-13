@@ -1,9 +1,8 @@
 package com.opencode.practice.repos;
 
-import com.opencode.practice.assistClass.AnswerScore;
+import com.opencode.practice.projection.AnswerScore;
 import com.opencode.practice.model.Answer;
 import com.opencode.practice.projection.AnswerIdOnly;
-import com.opencode.practice.projection.AnswerView;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -34,13 +33,13 @@ public interface AnswerRepo extends JpaRepository<Answer,Long> {
 
 
     @Query(nativeQuery = true, value = "WITH first_question AS (" +
-            " SELECT app_user_id, answer_id, a.text FROM users_answer ua join answer a on ua.answer_id  = a.id   WHERE a.question_id = 73), " +
-            " second_question AS (SELECT app_user_id, answer_id, a.text FROM users_answer ua JOIN answer a on ua.answer_id  = a.id   WHERE a.question_id = 76)," +
+            " SELECT app_user_id, answer_id, a.text FROM users_answer ua join answer a on ua.answer_id  = a.id WHERE a.question_id = ?1), " +
+            " second_question AS (SELECT app_user_id, answer_id, a.text FROM users_answer ua JOIN answer a on ua.answer_id  = a.id WHERE a.question_id = ?2)," +
             " joining AS (select first_question.app_user_id, first_question.answer_id AS firstAnswer," +
             " first_question.text AS firstQText, second_question.answer_id as secondAnswer, second_question.text AS secondQText" +
             " FROM first_question FULL JOIN second_question " +
             " ON first_question.app_user_id = second_question.app_user_id)" +
-            " SELECT firstanswer, firstQText,  secondanswer,secondQText, count(*) as user_count" +
-            " FROM joining GROUP BY firstanswer, secondanswer, firstQText,secondQText ORDER BY user_count desc")
+            " SELECT firstAnswer, firstAText, secondAnswer,secondAText, count(*) as score" +
+            " FROM joining GROUP BY firstAnswer, secondAnswer, firstAText,secondAText ORDER BY score desc")
     List<AnswerScore> findUsersStatistics(long questionFirstId, long questionSecondId);
 }

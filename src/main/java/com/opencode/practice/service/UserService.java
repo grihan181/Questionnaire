@@ -1,15 +1,17 @@
 package com.opencode.practice.service;
 
-import com.opencode.practice.projection.QuestionnaireView;
 import com.opencode.practice.assistClass.QuestionnaireScore;
 import com.opencode.practice.assistClass.UserScore;
-import com.opencode.practice.projection.AnswerIdOnly;
 import com.opencode.practice.model.Answer;
 import com.opencode.practice.model.Questionnaire;
+import com.opencode.practice.projection.AnswerIdOnly;
+import com.opencode.practice.projection.QuestionnaireView;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+/**
+ * @author Grihan
+ */
 @Service
 public interface UserService {
     List<QuestionnaireView> findAllQuestionnaire();

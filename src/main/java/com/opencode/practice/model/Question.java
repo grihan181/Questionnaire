@@ -1,16 +1,23 @@
 package com.opencode.practice.model;
 
+import com.opencode.practice.audit.Auditable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * @author Grihan
+ */
+
 @Entity
 @Data
 @NoArgsConstructor
-public class Question {
+@EntityListeners(AuditingEntityListener.class)
+public class Question extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -19,13 +26,7 @@ public class Question {
 
     private int rightAnswerIdx;
 
-/*  @ManyToOne
-    @JoinColumn(name = "questionnaire_id")
-    private Questionnaire questionnaire;*/
-
-    @OneToMany(/*mappedBy = "question"*/
-            cascade = CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn(name = "question_id")
     private List<Answer> answers = new LinkedList<>();
-    //    private Stack<Answer> answers = new Stack<>();
 }

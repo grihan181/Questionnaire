@@ -1,19 +1,26 @@
 package com.opencode.practice.model;
 
-import com.opencode.practice.security.jwts.SecurityUser;
 import lombok.Data;
-
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * @author Grihan,Artem
+ */
 @Data
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "AppUser")
 public class User extends SecurityUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String email;
 
@@ -22,7 +29,9 @@ public class User extends SecurityUser {
     @Enumerated(value = EnumType.STRING)
     private Status status;
 
-
+    /**
+     * @author Grihan
+     */
     @ManyToMany
     @JoinTable(
             name = "UsersAnswer",
@@ -30,4 +39,6 @@ public class User extends SecurityUser {
             inverseJoinColumns = {@JoinColumn(name = "answer_id")}
     )
     private List<Answer> answers = new LinkedList<>();
+
+
 }

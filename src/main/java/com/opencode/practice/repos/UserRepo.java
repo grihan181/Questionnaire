@@ -1,7 +1,7 @@
 package com.opencode.practice.repos;
 
-import com.opencode.practice.projection.UserView;
 import com.opencode.practice.model.User;
+import com.opencode.practice.projection.UserView;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @author Grihan
+ */
 @Repository
 public interface UserRepo extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);

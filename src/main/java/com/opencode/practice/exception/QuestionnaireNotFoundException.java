@@ -1,7 +1,7 @@
 package com.opencode.practice.exception;
 
 /**
- * @author Grihan
+ * @author Artem
  */
 public class QuestionnaireNotFoundException extends RuntimeException{
     public QuestionnaireNotFoundException(long id) {

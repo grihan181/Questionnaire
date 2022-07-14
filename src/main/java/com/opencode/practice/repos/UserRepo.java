@@ -15,6 +15,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepo extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
+    boolean existsByEmail(String email);
 
     @Query(nativeQuery = true, value = "SELECT DISTINCT au.id, au.email, au.password, au.username" +
             " FROM app_user au JOIN users_answer ua JOIN answer a JOIN question q" +

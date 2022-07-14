@@ -57,6 +57,7 @@ public class AuthenticationRestControllerV1 {
 
     }
 
+
     /**
      * Авторизация пользователя
      *

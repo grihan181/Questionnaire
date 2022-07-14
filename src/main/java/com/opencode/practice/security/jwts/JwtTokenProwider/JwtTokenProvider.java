@@ -40,14 +40,15 @@ public class JwtTokenProvider {
     }
 
     /**
-     * @author Artem
      * @param username
      * @param role
      * @return Создает токен пользователя
+     * @author Artem
      */
-    public String createToken(String username, String role) {
+    public String createToken(String username, String role, String nickName) {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("role", role);
+        claims.put("nickName",nickName);
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds * 1000);
 
@@ -60,9 +61,9 @@ public class JwtTokenProvider {
     }
 
     /**
-     * @author Artem
      * @param token
      * @return валидатор токена
+     * @author Artem
      */
     public boolean validateToken(String token) {
         try {
@@ -74,7 +75,6 @@ public class JwtTokenProvider {
     }
 
     /**
-     *
      * @param token
      * @return
      */
@@ -84,7 +84,6 @@ public class JwtTokenProvider {
     }
 
     /**
-     *
      * @param token
      * @return
      */
@@ -93,7 +92,6 @@ public class JwtTokenProvider {
     }
 
     /**
-     *
      * @param request
      * @return
      */

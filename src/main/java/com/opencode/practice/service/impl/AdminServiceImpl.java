@@ -1,7 +1,7 @@
 package com.opencode.practice.service.impl;
 
+import com.opencode.practice.exception.NoSuchCountExeption;
 import com.opencode.practice.projection.Statistics;
-import com.opencode.practice.exception.QuestionnaireNotFoundException;
 import com.opencode.practice.model.Questionnaire;
 import com.opencode.practice.model.User;
 import com.opencode.practice.repos.AnswerRepo;
@@ -78,7 +78,7 @@ public class AdminServiceImpl implements AdminService {
                 }
             }
             return questionnaireRepo.save(questionnaire);
-        }).orElseThrow(() -> new QuestionnaireNotFoundException(id));
+        }).orElseThrow(() -> new NoSuchCountExeption("Такой анкеты нет: " + id));
     }
 
     public List<Statistics> getUsersStatistics(long questionFirstId, long questionSecondId) {

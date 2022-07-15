@@ -1,9 +1,7 @@
 package com.opencode.practice.audit;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.AuditorAware;
 
-import javax.swing.*;
 import java.util.Optional;
 
 /**

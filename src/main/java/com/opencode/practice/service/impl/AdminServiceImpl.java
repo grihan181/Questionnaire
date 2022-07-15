@@ -1,8 +1,10 @@
 package com.opencode.practice.service.impl;
 
+import com.opencode.practice.projection.Statistics;
 import com.opencode.practice.exception.QuestionnaireNotFoundException;
 import com.opencode.practice.model.Questionnaire;
 import com.opencode.practice.model.User;
+import com.opencode.practice.repos.AnswerRepo;
 import com.opencode.practice.repos.QuestionnaireRepo;
 import com.opencode.practice.repos.UserRepo;
 import com.opencode.practice.service.AdminService;
@@ -21,6 +23,9 @@ public class AdminServiceImpl implements AdminService {
     UserRepo userRepo;
     @Autowired
     QuestionnaireRepo questionnaireRepo;
+    @Autowired
+    AnswerRepo answerRepo;
+
 
     /**
      * @author Grihan
@@ -74,5 +79,9 @@ public class AdminServiceImpl implements AdminService {
             }
             return questionnaireRepo.save(questionnaire);
         }).orElseThrow(() -> new QuestionnaireNotFoundException(id));
+    }
+
+    public List<Statistics> getUsersStatistics(long questionFirstId, long questionSecondId) {
+        return answerRepo.findUsersStatistics(questionFirstId, questionSecondId);
     }
 }

@@ -65,5 +65,4 @@ public class AdminController {
     public List<Statistics> findUsersStatistics(@PathVariable long questionFirstId, @PathVariable long questionSecondId) {
         return adminService.getUsersStatistics(questionFirstId, questionSecondId);
     }
-
 }

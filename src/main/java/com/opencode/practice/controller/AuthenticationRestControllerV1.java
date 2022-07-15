@@ -94,6 +94,4 @@ public class AuthenticationRestControllerV1 {
         throw new NoSuchCountExeption("logout");
 
     }
-
-
 }

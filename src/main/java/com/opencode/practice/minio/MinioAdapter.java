@@ -19,6 +19,9 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+/**
+ * @author Artem
+ */
 @Service
 public class MinioAdapter {
 

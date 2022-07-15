@@ -54,7 +54,7 @@ public class AdminController {
 
     }
 
-    @GetMapping("getusers")
+    @GetMapping("getUsers")
     @PreAuthorize("hasAuthority('developers:write')")
     public List<User> findAllUsers() {
         return adminService.findAllUsers();

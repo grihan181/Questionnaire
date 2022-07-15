@@ -40,6 +40,6 @@ public interface AnswerRepo extends JpaRepository<Answer,Long> {
             " FROM first_question FULL JOIN second_question " +
             " ON first_question.app_user_id = second_question.app_user_id)" +
             " SELECT firstAnswer, firstAText, secondAnswer,secondAText, COUNT(*) AS score" +
-            " FROM joining GROUP BY firstAnswer, secondAnswer, firstAText,secondAText ORDER BY score desc")
+            " FROM joining GROUP BY firstAnswer, secondAnswer, firstAText,secondAText ORDER BY score DESC")
     List<Statistics> findUsersStatistics(long questionFirstId, long questionSecondId);
 }

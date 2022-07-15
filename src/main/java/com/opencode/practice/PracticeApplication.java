@@ -27,6 +27,7 @@ public class PracticeApplication {
 			if (!userService.existsByEmail("admin@gmail.com")) {
 				User user = new User();
 				user.setEmail("admin@gmail.com");
+				user.setUsername("--AdmiN--");
 				user.setPassword("666666");
 
 				user.setPassword(String.valueOf(new BCryptPasswordEncoder(12).encode(user.getPassword())));

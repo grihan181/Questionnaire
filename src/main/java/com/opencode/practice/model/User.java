@@ -35,6 +35,4 @@ public class User extends SecurityUser {
             inverseJoinColumns = {@JoinColumn(name = "answer_id")}
     )
     private List<Answer> answers = new LinkedList<>();
-
-
 }

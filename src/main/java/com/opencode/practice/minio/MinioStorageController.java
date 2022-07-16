@@ -1,4 +1,6 @@
 package com.opencode.practice.minio;
+import com.opencode.practice.model.Picture;
+import com.opencode.practice.repos.PictureRepo;
 import io.minio.errors.*;
 import io.minio.messages.Bucket;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,9 @@ import java.util.Map;
 @RestController
 public class MinioStorageController {
     @Autowired
-    MinioAdapter minioAdapter;
+    private PictureRepo pictureRepo;
+    @Autowired
+    private MinioAdapter minioAdapter;
 
     @GetMapping(path = "/buckets")
     public List<Bucket> listBuckets() {
@@ -33,6 +37,7 @@ public class MinioStorageController {
         minioAdapter.uploadFile(files.getOriginalFilename(), files.getBytes());
         Map<String, String> result = new HashMap<>();
         result.put("key", files.getOriginalFilename());
+        pictureRepo.save(new Picture(files.getOriginalFilename()));
         return result;
     }
 

@@ -46,6 +46,11 @@ public class UserServiceImpl implements UserService {
         return questionnaireRepo.findAllQuestionnairesAsQuestionnaireView();
     }
 
+    @Override
+    public List<QuestionnaireView> findQuestionnairesNoCompletedByUser(long userId) {
+        return questionnaireRepo.findNoQuestionnaireViewsByUserId(userId);
+    }
+
     /**
      * @author Grihan
      * @param answers

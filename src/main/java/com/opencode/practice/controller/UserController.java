@@ -38,6 +38,7 @@ public class UserController {
 
     }
 
+
     @PostMapping("{userId}/{questionnaireId}")
     @PreAuthorize("hasAuthority('developers:read')")
     public void saveAnswers(@PathVariable long userId,
@@ -60,6 +61,10 @@ public class UserController {
         return userService.getUserScoreInAllQuestionnaires(userId);
     }
 
+    @GetMapping("getNoCompletedQ/{id}")
+    public List<QuestionnaireView> getQuestionnaireListThatUserNoCompleted(@PathVariable long id) {
+        return userService.findQuestionnairesNoCompletedByUser(id);
+    }
     @GetMapping("leaderBoard/{id}")
     @PreAuthorize("hasAuthority('developers:read')")
     public List<UserScore> getLeaderBoard(@PathVariable long id) {

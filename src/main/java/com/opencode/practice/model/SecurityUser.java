@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
-import javax.validation.constraints.Min;
+//import javax.validation.constraints.Min;
 import java.util.Collection;
 import java.util.List;
 
@@ -21,7 +21,7 @@ import java.util.List;
 public class SecurityUser implements UserDetails {
 
     private String username;
-    @Min(value = 6)
+    //@Min(value = 6)
     private String password;
 
     @Transient

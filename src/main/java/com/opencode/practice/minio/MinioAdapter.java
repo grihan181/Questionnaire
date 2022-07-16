@@ -42,7 +42,7 @@ public class MinioAdapter {
 
 
     public void uploadFile(String name, byte[] content) {
-        File file = new File("/tmp/" + name);
+        File file = new File("/C:/Users/osagr/Downloads/" + name);
         file.canWrite();
         file.canRead();
         try {

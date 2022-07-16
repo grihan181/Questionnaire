@@ -1,5 +1,9 @@
 package com.opencode.practice.security.jwts.JwtTokenProwider;
 
+import com.opencode.practice.controller.AuthenticationRestControllerV1;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,7 +40,7 @@ public class JwtTokenFilter extends GenericFilterBean {
      */
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-       logger.info("РАбота метода doFilter ");
+        logger.info("РАбота метода doFilter ");
         String token = jwtTokenProvider.resolveToken((HttpServletRequest) servletRequest);
         try {
             if (token != null && jwtTokenProvider.validateToken(token)) {
@@ -49,8 +53,8 @@ public class JwtTokenFilter extends GenericFilterBean {
             logger.info("JwtAuthenticationException ошибка ");
             SecurityContextHolder.clearContext();
             ((HttpServletResponse) servletResponse).sendError(e.getHttpStatus().value());
-            throw new JwtAuthenticationException("Jwt Token is expired or invalid", HttpStatus.UNAUTHORIZED);
+            throw new JwtAuthenticationException("JWT token is expired or invalid");
         }
-        filterChain.doFilter(servletRequest, servletResponse );
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 }

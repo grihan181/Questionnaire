@@ -125,6 +125,16 @@ public class UserServiceImpl implements UserService {
         return questionnaireScores;
     }
 
+    @Override
+    public List<QuestionnaireView> findQuestioonairsCompleteByUser(long userId) {
+        return questionnaireRepo.findQuestionnaireViewsByUserId(userId);
+    }
+
+    @Override
+    public List<QuestionnaireView> findQuestioonairsNotCompleteByUSer(long userId) {
+        return questionnaireRepo.findNoQuestionnaireViewsByUserId(userId);
+    }
+
     //Helping methods
     @Override
     public List<AnswerIdOnly> getUserAnswersInOneQuestionnaire(long userId, long questionnaireId) {

@@ -14,11 +14,14 @@ public class Picture {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String pictureName;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    User user;
+    private String author;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    User user;
 
-    public Picture(String pictureName) {
+    public Picture(String pictureName,String author) {
+
         this.pictureName = pictureName;
+        this.author=author;
     }
 }

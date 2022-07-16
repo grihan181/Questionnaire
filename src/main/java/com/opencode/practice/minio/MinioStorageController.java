@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +24,7 @@ import java.util.Map;
  */
 @RestController
 public class MinioStorageController {
+
     @Autowired
     private PictureRepo pictureRepo;
     @Autowired
@@ -35,9 +38,12 @@ public class MinioStorageController {
     @PostMapping(path = "/upload", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public Map<String, String> uploadFile(@RequestPart(value = "file", required = false) MultipartFile files) throws IOException {
         minioAdapter.uploadFile(files.getOriginalFilename(), files.getBytes());
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+        String username = userDetails.getUsername();
         Map<String, String> result = new HashMap<>();
         result.put("key", files.getOriginalFilename());
-        pictureRepo.save(new Picture(files.getOriginalFilename()));
+        pictureRepo.save(new Picture(files.getOriginalFilename(),username));
         return result;
     }
 

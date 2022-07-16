@@ -38,6 +38,18 @@ public class UserController {
 
     }
 
+    @GetMapping("completedQustionnaires/{id}")
+    @PreAuthorize("hasAuthority('developers:read')")
+    public List<QuestionnaireView> getQuestionariesThatUserComplete(@PathVariable long id) {
+        return userService.findQuestioonairsCompleteByUser(id);
+    }
+    @GetMapping("notCompletedQustionnaires/{id}")
+    @PreAuthorize("hasAuthority('developers:read')")
+    public List<QuestionnaireView> getQuestionariesThatUserNotComplete(@PathVariable long id) {
+        return userService.findQuestioonairsNotCompleteByUSer(id);
+    }
+
+
     @PostMapping("{userId}/{questionnaireId}")
     @PreAuthorize("hasAuthority('developers:read')")
     public void saveAnswers(@PathVariable long userId,

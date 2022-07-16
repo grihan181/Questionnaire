@@ -20,6 +20,8 @@ public interface UserService {
     Questionnaire getQuestionnaireById(long questionnaireId);
     List<UserScore> getLeaderBordInOneQuestionnaire(long questionnaireId);
     List<QuestionnaireScore> getUserScoreInAllQuestionnaires(long userId);
+    List<QuestionnaireView> findQuestioonairsCompleteByUser(long userId);
+    List<QuestionnaireView> findQuestioonairsNotCompleteByUSer(long userId);
 
     //Helping methods
     List<AnswerIdOnly> getUserAnswersInOneQuestionnaire(long userId, long questionnaireId);

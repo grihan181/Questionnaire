@@ -1,13 +1,11 @@
 package com.opencode.practice.controller;
 
-import com.opencode.practice.exception.ExceptionData;
 import com.opencode.practice.exception.NoSuchCountExeption;
 import com.opencode.practice.model.Role;
 import com.opencode.practice.model.Status;
 import com.opencode.practice.model.User;
 import com.opencode.practice.repos.UserRepo;
 import com.opencode.practice.security.jwts.JwtTokenProwider.JwtTokenProvider;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -70,9 +68,8 @@ public class AuthenticationRestControllerV1 {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
             User user = userRepo.findByEmail(request.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));
-            String token = jwtTokenProvider.createToken(request.getEmail(), user.getRole().name(), user.getUsername());
+            String token = jwtTokenProvider.createToken(user.getEmail(), user.getRole().name(), user.getUsername(), String.valueOf(user.getId()));
             Map<Object, Object> response = new HashMap<>();
-            response.put("email", request.getEmail());
             response.put("token", token);
             return ResponseEntity.ok(response);
         } catch (AuthenticationException e) {

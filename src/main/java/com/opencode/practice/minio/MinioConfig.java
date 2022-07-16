@@ -1,3 +1,4 @@
+/*
 package com.opencode.practice.minio;
 
 import io.minio.MinioClient;
@@ -25,4 +26,4 @@ public class MinioConfig {
         }
 
     }
-}
+}*/

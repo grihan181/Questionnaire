@@ -1,10 +1,5 @@
 package com.opencode.practice.projection;
 
-import com.opencode.practice.projection.AnswerView;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Component;
-
 /**
  * @author Grihan
  */

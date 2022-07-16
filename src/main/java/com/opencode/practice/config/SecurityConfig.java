@@ -1,10 +1,8 @@
 package com.opencode.practice.config;
 
-import com.opencode.practice.model.Permission;
 import com.opencode.practice.security.jwts.JwtTokenProwider.JwtConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

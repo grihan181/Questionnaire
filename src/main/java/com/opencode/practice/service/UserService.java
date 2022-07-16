@@ -15,6 +15,7 @@ import java.util.List;
 @Service
 public interface UserService {
     List<QuestionnaireView> findAllQuestionnaire();
+    List<QuestionnaireView> findQuestionnairesNoCompletedByUser(long userId);
     void saveAnswers(List<Integer> answers, long questionnaireId, long userId);
     void updateAnswers(List<Integer> answers, long questionnaireId, long userId);
     Questionnaire getQuestionnaireById(long questionnaireId);

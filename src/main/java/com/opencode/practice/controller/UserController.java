@@ -38,6 +38,11 @@ public class UserController {
 
     }
 
+    @GetMapping("getNoCompletedQ/{id}")
+    public List<QuestionnaireView> getQuestionnaireListThatUserNoCompleted(@PathVariable long id) {
+        return userService.findQuestionnairesNoCompletedByUser(id);
+    }
+
     @PostMapping("{userId}/{questionnaireId}")
     @PreAuthorize("hasAuthority('developers:read')")
     public void saveAnswers(@PathVariable long userId,

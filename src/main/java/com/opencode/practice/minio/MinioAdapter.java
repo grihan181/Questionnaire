@@ -1,4 +1,4 @@
-/*
+
 package com.opencode.practice.minio;
 
 import io.minio.GetObjectArgs;
@@ -78,4 +78,4 @@ public class MinioAdapter {
     @PostConstruct
     public void init() {
     }
-}*/
+}

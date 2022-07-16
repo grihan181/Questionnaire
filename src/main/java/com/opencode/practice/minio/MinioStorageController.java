@@ -1,4 +1,3 @@
-/*
 package com.opencode.practice.minio;
 import io.minio.errors.*;
 import io.minio.messages.Bucket;
@@ -47,4 +46,4 @@ public class MinioStorageController {
                 .body(resource);
 
     }
-}*/
+}

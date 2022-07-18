@@ -8,6 +8,8 @@ import com.opencode.practice.service.AdminService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,28 +31,28 @@ public class AdminController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('developers:write')")
-    public void createQuestionary(@RequestBody Questionnaire questionary) {
+    public ResponseEntity<String> createQuestionary(@RequestBody Questionnaire questionary) {
         logger.info("Работа метода createQuestionary");
         adminService.addQuestionnaire(questionary);
-        throw new NoSuchCountExeption("Анкета создалась");
+        return new ResponseEntity<>("Анкета создалась", HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
     @PreAuthorize("hasAuthority('developers:write')")
-    public void deleteQuestionaty(@PathVariable long id) {
+    public ResponseEntity<String> deleteQuestionaty(@PathVariable long id) {
         logger.info("Работа метода deleteQuestionaty");
 
         adminService.deleteQuestionnaireById(id);
-        throw new NoSuchCountExeption("Анкета удалилась");
+        return new ResponseEntity<>("Анкета удалилась", HttpStatus.OK);
 
     }
 
     @PutMapping("{id}")
     @PreAuthorize("hasAuthority('developers:write')")
-    public void editQuestionaty(@PathVariable long id, @RequestBody Questionnaire questionnaire) {
+    public ResponseEntity<String> editQuestionaty(@PathVariable long id, @RequestBody Questionnaire questionnaire) {
         logger.info("Работа метода editQuestionaty");
         adminService.editQuestionnaire(id, questionnaire);
-        throw new NoSuchCountExeption("Анкета едит");
+        return new ResponseEntity<>("Анкета едит", HttpStatus.OK);
 
     }
 
